@@ -2,4 +2,11 @@
 <resources>
     <string name="app_name">НМедиа</string>
     <string name="greeting" translatable="true">НМедиа!</string>
+    <string name="avatarimage">avatarimage</string>
+    <string name="schoolname">Нетология - университет инет профессий</string>
+    <string name="date">15 апреля 2022</string>
+    <string name="menubutton" translatable="true">Кнопка меню</string>
+    <string name="likes" translatable="true">Лайкиt</string>
+    <string name="shares" translatable="true">Расшарить</string>
+    <string name="looks" translatable="true">Просмотры</string>
 </resources>
