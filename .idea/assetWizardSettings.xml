@@ -307,7 +307,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$ADB$/icons/material/materialicons/remove_red_eye/baseline_remove_red_eye_24.xml" />
+                                      <entry key="url" value="file:/$ADB$/icons/material/materialicons/favorite/baseline_favorite_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -318,7 +318,8 @@
                         <option name="values">
                           <map>
                             <entry key="autoMirrored" value="true" />
-                            <entry key="outputName" value="ic_baseline_remove_red_eye_24" />
+                            <entry key="color" value="ff0000" />
+                            <entry key="outputName" value="liked24" />
                             <entry key="sourceFile" value="C:\Users\User\Pictures\netology.svg" />
                           </map>
                         </option>
