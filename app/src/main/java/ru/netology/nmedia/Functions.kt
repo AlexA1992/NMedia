@@ -1,12 +1,13 @@
 package ru.netology.nmedia
 
+import android.text.Layout
+
 class Functions {
     companion object Factory {
         var thisValue = 0
     }
 
     fun setString (value: Int) : String {
-
         var newValue: String = ""
         if(value in 0..999) {
             newValue = value.toString()
@@ -27,8 +28,21 @@ class Functions {
             newValue = thisThous
             return newValue
         }
-
         return newValue
     }
 
+    //поставить лайк
+    fun add(value: Int): String {
+        var newval = 0
+        newval = value + 1
+        val newString = Functions().setString(newval)
+        return newString
+    }
+
+    //снять лайк
+    fun reduce(value: Int): String {
+        val newval = value - 1
+        val newString = Functions().setString(newval)
+        return newString
+    }
 }
