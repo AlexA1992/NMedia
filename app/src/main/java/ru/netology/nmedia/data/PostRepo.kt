@@ -10,7 +10,7 @@ import ru.netology.nmedia.databinding.ActivityMainBinding
 
 class PostRepo() : Repository {
     override val shareCount = MutableLiveData(0)
-    override val post = MutableLiveData(Post(1, 0, false))
+    override val post = MutableLiveData(Post(1, 0, false, "Перспективное планирование предполагает независимые способы реализации экспериментов, поражающих по своей масштабности и грандиозности. Повседневная практика показывает, что высокотехнологичная концепция общественного уклада однозначно определяет каждого участника как способного принимать собственные решения касаемо благоприятных перспектив. Кстати, действия представителей оппозиции неоднозначны и будут описаны максимально подробно!", "19.04.2022", "Alex", 0))
 
     override fun sharePlus() {
         val currentVal: Int? = shareCount.value
