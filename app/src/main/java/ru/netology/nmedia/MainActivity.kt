@@ -21,20 +21,18 @@ class MainActivity : AppCompatActivity() {
             if (newLikedByMe == false) {
                 binding.likes.setImageResource(R.drawable.ic_baseline_favorite_border_24)
                 binding.likescount.setText((it.liked).toString())
+                binding.content.setText(it.content)
             } else {
                 binding.likes.setImageResource(R.drawable.liked24)
                 binding.likescount.setText((it.liked + 1).toString())
             }
+            binding.sharescount.setText(it.repostsQ.toString())
         }
+
         binding.likes.setOnClickListener {
             viewModel.likesClicked()
         }
 
-        //обработка расшариваний
-        viewModel.shareData.observe(this) {
-            println("it shareData $it")
-            binding.sharescount.setText(it.toString())
-        }
         binding.shares.setOnClickListener {
             viewModel.shareClicked()
         }
