@@ -1,14 +1,9 @@
 <resources>
     <string name="app_name">NMedia</string>
-    <string name="greeting">NMedia</string>
+    <string name="greeting" translatable="true">NMedia!</string>
     <string name="avatarimage">avatarimage</string>
-    <string name="schoolname">Netology - Inet Skills Univercity</string>
-    <string name="date">2022, 15 april</string>
     <string name="menubutton" translatable="true">menuButton</string>
     <string name="likes" translatable="true">likescount</string>
-    <string name="countoflikes" translatable="false">0</string>
     <string name="shares" translatable="true">Shares</string>
-    <string name="sharescount" translatable="false">0</string>
     <string name="looks" translatable="true">Looks</string>
-    <string name="lookscount" translatable="false">0</string>
 </resources>

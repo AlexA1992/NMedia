@@ -18,14 +18,15 @@ class MainActivity : AppCompatActivity() {
         //обработка лайков
         viewModel.likeData.observe(this) {
             val newLikedByMe = it.likedbyMe
+            binding.schoolname.setText(it.author)
+            binding.date.setText(it.date)
+            binding.content.setText(it.content)
             if (newLikedByMe == false) {
                 binding.likes.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-                binding.likescount.setText((it.liked).toString())
-                binding.content.setText(it.content)
             } else {
                 binding.likes.setImageResource(R.drawable.liked24)
-                binding.likescount.setText((it.liked + 1).toString())
             }
+            binding.likescount.setText((it.liked).toString())
             binding.sharescount.setText(it.repostsQ.toString())
         }
 
