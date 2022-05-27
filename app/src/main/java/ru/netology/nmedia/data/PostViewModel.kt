@@ -5,8 +5,8 @@ import ru.netology.nmedia.Post
 
 class PostViewModel : ViewModel() {
     private val repository = PostRepo()
-    val likeData = repository.post
+    val likeData = repository.posts
 
-    fun shareClicked() = repository.sharePlus()
-    fun likesClicked() = repository.likesChange()
+    fun shareClicked(post: Post) = repository.sharePlus(post.id)
+    fun likesClicked(post: Post) = repository.likesChange(post.id)
 }

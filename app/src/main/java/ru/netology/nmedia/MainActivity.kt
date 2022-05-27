@@ -2,40 +2,27 @@ package ru.netology.nmedia
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.activity.viewModels
 import ru.netology.nmedia.data.PostViewModel
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import ru.netology.nmedia.data.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.databinding.PostBinding
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<PostViewModel>()
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //обработка лайков
-        viewModel.likeData.observe(this) {
-            val newLikedByMe = it.likedbyMe
-            binding.schoolname.setText(it.author)
-            binding.date.setText(it.date)
-            binding.content.setText(it.content)
-            if (newLikedByMe == false) {
-                binding.likes.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-            } else {
-                binding.likes.setImageResource(R.drawable.liked24)
-            }
-            binding.likescount.setText((it.liked).toString())
-            binding.sharescount.setText(it.repostsQ.toString())
-        }
-
-        binding.likes.setOnClickListener {
-            viewModel.likesClicked()
-        }
-
-        binding.shares.setOnClickListener {
-            viewModel.shareClicked()
+        val adapter1 = PostAdapter(viewModel::likesClicked, viewModel::shareClicked)
+        binding.postsRecyclerView.adapter = adapter1
+        viewModel.likeData.observe(this) { posts ->
+            adapter1.posts = posts
         }
     }
 }
