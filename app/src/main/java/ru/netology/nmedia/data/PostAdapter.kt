@@ -3,6 +3,7 @@ package ru.netology.nmedia.data
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -17,7 +18,9 @@ import kotlin.properties.Delegates
 @SuppressLint("NotifyDataSetChanged")
 internal class PostAdapter(
     private val onLikeClicked: (Post) -> Unit,
-    private val shareClicked: (Post) -> Unit
+    private val shareClicked: (Post) -> Unit,
+    private val deleteClicked: (Post) -> Unit,
+    private val editClicked: (Post) -> Unit,
 ) : ListAdapter<Post, PostAdapter.ViewHolder>(Diffcallback) {
     var posts: List<Post> by Delegates.observable(emptyList()) { _, _, _ ->
         notifyDataSetChanged()
@@ -48,8 +51,30 @@ internal class PostAdapter(
 
     inner class ViewHolder(private val postBinding: PostBinding) :
         RecyclerView.ViewHolder(postBinding.root) {
+
+
+        @SuppressLint("SetTextI18n")
         fun bind(post: Post) = with(postBinding) {
-            println(post)
+            val popupMenu by lazy {
+                //println(post)
+                PopupMenu(itemView.context, postBinding.menuButton).apply {
+                    inflate(R.menu.options_post)
+                    setOnMenuItemClickListener { menuItem ->
+                        when (menuItem.itemId) {
+                            R.id.remove -> {
+                                //println(post)
+                                deleteClicked(post)
+                                true
+                            }
+                            R.id.edit -> {
+                                editClicked(post)
+                                true
+                            }
+                            else -> false
+                        }
+                    }
+                }
+            }
             postBinding.schoolname.setText(post.author)
             postBinding.date.setText(post.date)
             postBinding.content.setText(post.content)
@@ -60,14 +85,17 @@ internal class PostAdapter(
             }
             postBinding.likescount.setText((post.liked).toString())
             postBinding.sharescount.setText(post.repostsQ.toString())
+            if(post.edited == true){
+                postBinding.edited.setText("edited")
+                postBinding.edited.setVisibility(android.view.View.VISIBLE)
+            }
             postBinding.likes.setOnClickListener {
                 onLikeClicked(post)
             }
             postBinding.shares.setOnClickListener {
                 shareClicked(post)
             }
+            postBinding.menuButton.setOnClickListener { popupMenu.show() }
         }
     }
-
-
 }

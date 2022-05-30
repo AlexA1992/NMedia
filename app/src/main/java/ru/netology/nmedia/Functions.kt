@@ -1,9 +1,11 @@
 package ru.netology.nmedia
 
 import android.text.Layout
+import java.text.SimpleDateFormat
+import java.util.*
 
-class Functions {
-    companion object Factory {
+
+    object Factory {
         var thisValue = 0
     }
 
@@ -16,7 +18,7 @@ class Functions {
 
         val millions = value/1000000
         if(millions >= 1) {
-            val thisMills = "${millions.toString()}" + "M"
+            val thisMills = millions.toString() + "M"
             newValue = thisMills
             return newValue
         }
@@ -24,7 +26,7 @@ class Functions {
         val afterMillions = value - millions
         val thousands = afterMillions/1000
         if(thousands >= 1) {
-            val thisThous = "${thousands.toString()}" + "K"
+            val thisThous = thousands.toString() + "K"
             newValue = thisThous
             return newValue
         }
@@ -35,14 +37,22 @@ class Functions {
     fun add(value: Int): String {
         var newval = 0
         newval = value + 1
-        val newString = Functions().setString(newval)
+        val newString = setString(newval)
         return newString
     }
 
     //снять лайк
     fun reduce(value: Int): String {
         val newval = value - 1
-        val newString = Functions().setString(newval)
+        val newString = setString(newval)
         return newString
     }
-}
+
+    fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.format(this)
+    }
+
+    fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
+    }

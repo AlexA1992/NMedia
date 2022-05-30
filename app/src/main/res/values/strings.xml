@@ -6,4 +6,8 @@
     <string name="likes" translatable="true">likescount</string>
     <string name="shares" translatable="true">Shares</string>
     <string name="looks" translatable="true">Looks</string>
+    <string name="remove_this" translatable="true">Remove this</string>
+    <string name="post_text" translatable="true">Type your post text</string>
+    <string name="edit" translatable="true">Edit this</string>
+    <string name="the_description" translatable="false">the description</string>
 </resources>

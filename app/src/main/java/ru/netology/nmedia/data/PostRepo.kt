@@ -1,46 +1,49 @@
 package ru.netology.nmedia.data
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import ru.netology.nmedia.Functions
 import ru.netology.nmedia.MainActivity
 import ru.netology.nmedia.Post
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.ActivityMainBinding
-
+import ru.netology.nmedia.getCurrentDateTime
+import ru.netology.nmedia.toString
 class PostRepo() : Repository {
-    private val allPosts: List<Post>?
-        get() = checkNotNull(posts.value)
 
+    val date = getCurrentDateTime()
+    var dateInString = date.toString("yyyy/MM/dd HH:mm:ss")
     override val posts = MutableLiveData(
-        List(2) { index ->
+
+        List(10) { index ->
             Post(
                 index + 1,
                 0,
                 false,
                 "Типа какой-то контент.... $index",
-                "19.04.2022",
-                "Нетология = школа какая-то там...",
-                0
+                dateInString,
+                "Нетология - школа ...",
+                0,
+                false
             )
         }
     )
 
 
     override fun sharePlus(postId: Int) {
-        allPosts?.map {
+        A.allPosts?.map {
             if (it.id == postId) {
                 val newPost = it.copy(repostsQ = it.repostsQ + 1)
                 it.repostsQ = newPost.repostsQ
             }
         }
-        posts.value = allPosts
+        posts.value = A.allPosts
     }
 
     override fun likesChange(postId: Int) {
         //println(postId)
-        allPosts?.map {
+        A.allPosts?.map {
             if (it.id == postId) {
                 //println(it)
                 it.likedbyMe = !it.likedbyMe
@@ -53,8 +56,57 @@ class PostRepo() : Repository {
                 }
             }
         }
-        posts.value = allPosts
+        posts.value = A.allPosts
+    }
+
+    override fun delete(postId: Int) {
+        posts.value = A.allPosts?.filter {
+            it.id != postId
+        }
+        A.allPosts = posts.value
+    }
+
+    override fun save(post: Post) {
+        println("post.id ${post.id}")
+        println("PostRepo().allPosts?.size ${allPosts?.size?.plus(1)}")
+        if(post.id == A.allPosts?.size?.plus(1))  {
+//            println("post.id ${post.id}")
+//            println("PostRepo().allPosts?.size ${PostRepo().allPosts?.size?.plus(1)}")
+
+            insert(post)
+        } else update(post)
     }
 
 
+
+    //private val nextId = POSTS_NOW
+    private fun insert(post: Post) {
+        post.id = A.allPosts?.size?.plus(1)!!
+        println("old allPosts $allPosts")
+        val newPostList = A.allPosts?.reversed()
+        if (newPostList != null) {
+            println("old posts.value ${posts.value}")
+            posts.value = newPostList.plus(post).reversed()
+            println("new posts.value ${posts.value}")
+        }
+        A.allPosts = posts.value
+        println("new allPosts $allPosts")
+    }
+
+    private fun update(post: Post) {
+        val date = getCurrentDateTime()
+        val dateInString = date.toString("yyyy/MM/dd HH:mm:ss")
+        posts.value = A.allPosts?.map{
+            if(it.id == post.id) {
+                post.edited = true
+                post.date = dateInString
+                post
+            } else it
+        }
+    }
+
+    companion object A{
+        var allPosts: List<Post>? = PostRepo().posts.value
+            //get() = checkNotNull(PostRepo().posts.value)
+    }
 }

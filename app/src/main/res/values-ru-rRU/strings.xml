@@ -7,4 +7,7 @@
     <string name="likes" translatable="true">Лайки</string>
     <string name="shares" translatable="true">Расшарить</string>
     <string name="looks" translatable="true">Просмотры</string>
+    <string name="remove_this" translatable="true">"Удалить это"</string>
+    <string name="post_text" translatable="true">Введите текст поста</string>
+    <string name="edit" translatable="true">Изменить это</string>
 </resources>

@@ -9,4 +9,10 @@ interface Repository {
 
     fun sharePlus(postId: Int)
     fun likesChange(postId: Int)
+    fun delete(postId: Int)
+    fun save(post: Post)
+
+    companion object{
+        const val NEW_POSTID = 0
+    }
 }
