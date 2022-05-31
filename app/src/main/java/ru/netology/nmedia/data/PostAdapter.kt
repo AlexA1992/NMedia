@@ -86,8 +86,10 @@ internal class PostAdapter(
             postBinding.likescount.setText((post.liked).toString())
             postBinding.sharescount.setText(post.repostsQ.toString())
             if(post.edited == true){
-                postBinding.edited.setText("edited")
+                postBinding.edited.setText(postBinding.edited.context.getText(R.string.edited))
                 postBinding.edited.setVisibility(android.view.View.VISIBLE)
+            } else {
+                postBinding.edited.setVisibility(android.view.View.GONE)
             }
             postBinding.likes.setOnClickListener {
                 onLikeClicked(post)

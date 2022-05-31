@@ -38,6 +38,12 @@ class MainActivity : AppCompatActivity() {
             binding.save.clearFocus()
             binding.save.hideKeyboard()
         }
+        binding.cancel.setOnClickListener {
+            viewModel.onCancelButtonClicked()
+            Toast.makeText(layoutInflater.context, "O-o-u-p-s", Toast.LENGTH_SHORT).show()
+            binding.save.clearFocus()
+            binding.save.hideKeyboard()
+        }
         viewModel.currentPost.observe(this) { currentPost ->
             binding.newPost.setText(currentPost?.content)
         }

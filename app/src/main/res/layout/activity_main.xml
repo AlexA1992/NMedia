@@ -31,7 +31,7 @@
     <EditText
         android:id="@+id/newPost"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:hint="@string/post_text"
         android:inputType="textMultiLine"
         android:background="@android:color/transparent"
@@ -40,8 +40,21 @@
         app:layout_constraintTop_toBottomOf="@id/saveBarrier"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/save"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/newPost"
+        app:layout_constraintBottom_toTopOf="@id/save"
+        app:layout_constraintTop_toTopOf="@id/newPost"
+        app:srcCompat="@drawable/ic_baseline_cancel_24"
+        android:contentDescription="@string/the_description" />
 
     <ImageButton
         android:id="@+id/save"
@@ -52,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/newPost"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@drawable/ic_baseline_done_24"
+        app:srcCompat="@drawable/ic_baseline_check_circle_24"
         android:contentDescription="@string/the_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

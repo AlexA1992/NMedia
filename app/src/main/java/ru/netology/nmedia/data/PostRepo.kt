@@ -13,7 +13,7 @@ import ru.netology.nmedia.toString
 class PostRepo() : Repository {
 
     val date = getCurrentDateTime()
-    var dateInString = date.toString("yyyy/MM/dd HH:mm:ss")
+    var dateInString = date.toString("dd/MM/yyyy HH:mm:ss")
     override val posts = MutableLiveData(
 
         List(10) { index ->

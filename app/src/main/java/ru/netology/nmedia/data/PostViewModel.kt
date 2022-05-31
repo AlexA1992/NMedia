@@ -15,12 +15,14 @@ class PostViewModel : ViewModel() {
     fun onDeleteClicked(post: Post) = repository.delete(post.id)
     fun onEditClicked(post: Post) {
         currentPost.value = post
-        repository.save(post)
+        //repository.save(post)
     }
+
+
 
     val currentPost = MutableLiveData<Post?>(null)
     val date = getCurrentDateTime()
-    val dateInString = date.toString("yyyy/MM/dd HH:mm:ss")
+    val dateInString = date.toString("dd/MM/yyyy HH:mm:ss")
 
     fun onSaveButtonClicked(newPostContent: String) {
         if (newPostContent.isBlank()) return
@@ -40,5 +42,10 @@ class PostViewModel : ViewModel() {
         )
         repository.save(Post)
         currentPost.value = null
+    }
+
+    fun onCancelButtonClicked() {
+        currentPost.value = null
+
     }
 }
