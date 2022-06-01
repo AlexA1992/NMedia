@@ -39,13 +39,15 @@
         app:layout_constraintStart_toEndOf="@id/avatarImage"
         app:layout_constraintTop_toBottomOf="@id/schoolname" />
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/menuButton"
+        style="@style/Widget.AppTheme.OptionsButton"
+        app:icon="@drawable/options"
+        android:checkable="true"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/menubutton"
-        android:src="@drawable/ic_baseline_more_vert_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/schoolname"
         app:layout_constraintTop_toTopOf="parent" />
@@ -75,51 +77,39 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="content" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/likes"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/likes"
-        android:src="@drawable/ic_baseline_favorite_border_24"
+        style="@style/Widget.AppTheme.likeCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        android:textSize="20sp"
+        android:textColor="@color/grey"
+        app:icon="@drawable/ic_likes_favorites_red"
         app:layout_constraintTop_toBottomOf="@+id/barrier2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        android:contentDescription="@string/likes"
+        app:layout_constraintEnd_toStartOf="@id/shares"
+        tools:text="10">
+    </com.google.android.material.button.MaterialButton>
 
-    <TextView
-        android:id="@+id/likescount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:textColor="@color/grey"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/likes"
-        app:layout_constraintTop_toTopOf="@id/likes"
-        app:layout_constraintStart_toEndOf="@id/likes" />
-
-
-    <androidx.appcompat.widget.AppCompatImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/shares"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/shares"
-        android:src="@drawable/ic_baseline_share_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/likescount" />
-
-    <TextView
-        android:id="@+id/sharescount"
+        style="@style/Widget.AppTheme.shareCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:textColor="@color/grey"
+        android:checkable="true"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/shares"
-        app:layout_constraintTop_toTopOf="@id/shares"
-        app:layout_constraintStart_toEndOf="@id/shares" />
+        android:textColor="@color/grey"
+        app:icon="@drawable/allshares"
+        app:layout_constraintTop_toBottomOf="@+id/barrier2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/likes"
+        android:contentDescription="@string/shares"
+        app:layout_constraintEnd_toStartOf="@id/shares"
+        tools:text="10">
+    </com.google.android.material.button.MaterialButton>
 
     <TextView
         android:id="@+id/edited"
@@ -130,8 +120,8 @@
         android:textSize="12sp"
         android:textStyle="italic"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/sharescount"
-        app:layout_constraintTop_toTopOf="@id/sharescount"
+        app:layout_constraintBottom_toBottomOf="@id/shares"
+        app:layout_constraintTop_toTopOf="@id/shares"
         app:layout_constraintEnd_toStartOf="@id/looks" />
 
     <!--        справа-->

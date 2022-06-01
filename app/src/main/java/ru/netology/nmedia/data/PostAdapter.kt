@@ -1,6 +1,7 @@
 package ru.netology.nmedia.data
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
@@ -78,14 +79,19 @@ internal class PostAdapter(
             postBinding.schoolname.setText(post.author)
             postBinding.date.setText(post.date)
             postBinding.content.setText(post.content)
-            if (post.likedbyMe == true) {
-                postBinding.likes.setImageResource(ru.netology.nmedia.R.drawable.liked24)
-            } else {
-                postBinding.likes.setImageResource(ru.netology.nmedia.R.drawable.ic_baseline_favorite_border_24)
-            }
-            postBinding.likescount.setText((post.liked).toString())
-            postBinding.sharescount.setText(post.repostsQ.toString())
-            if(post.edited == true){
+
+
+            postBinding.likes.setText((post.liked).toString())
+            postBinding.likes.isChecked = post.likedbyMe
+            postBinding.likes.setIconResource(R.drawable.ic_likes_favorites_red)
+
+            postBinding.shares.setText(post.repostsQ.toString())
+            postBinding.shares.isChecked = post.repostsQ > 0
+            postBinding.shares.setIconResource(R.drawable.allshares)
+
+
+
+            if (post.edited == true) {
                 postBinding.edited.setText(postBinding.edited.context.getText(R.string.edited))
                 postBinding.edited.setVisibility(android.view.View.VISIBLE)
             } else {
@@ -97,7 +103,17 @@ internal class PostAdapter(
             postBinding.shares.setOnClickListener {
                 shareClicked(post)
             }
-            postBinding.menuButton.setOnClickListener { popupMenu.show() }
+
+            postBinding.menuButton.setOnClickListener {
+                postBinding.menuButton.isChecked = true
+                println(postBinding.menuButton.isChecked)
+                popupMenu.show()
+            }
+
+            popupMenu.setOnDismissListener(){
+                postBinding.menuButton.isChecked = false
+                println(postBinding.menuButton.isChecked)
+            }
         }
     }
 }

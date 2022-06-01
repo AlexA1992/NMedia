@@ -307,7 +307,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$ADB$/icons/material/materialicons/check_circle/baseline_check_circle_24.xml" />
+                                      <entry key="url" value="file:/$ADB$/icons/material/materialicons/more_vert/baseline_more_vert_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -318,8 +318,8 @@
                         <option name="values">
                           <map>
                             <entry key="autoMirrored" value="true" />
-                            <entry key="color" value="3d7641" />
-                            <entry key="outputName" value="ic_baseline_check_circle_24" />
+                            <entry key="color" value="d0c7c7" />
+                            <entry key="outputName" value="ic_baseline_more_vert_24" />
                             <entry key="sourceFile" value="C:\Users\User\Pictures\netology.svg" />
                           </map>
                         </option>
