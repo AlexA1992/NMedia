@@ -8,6 +8,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/drawable/ic_baseline_more_horiz_24.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.1235" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/drawable/ic_baseline_play_circle_outline_24.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.1055" />
         <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.1555" />
         <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.1235" />
@@ -15,9 +16,11 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/drawable/ic_likes_favorites_red.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/drawable/liked24.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/drawable/options.xml" value="0.1" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/layout/activity_edit_post.xml" value="0.264" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/layout/activity_main.xml" value="0.16" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/layout/activity_video.xml" value="0.1046875" />
         <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/layout/new_activity.xml" value="0.17346014492753623" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/layout/post.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/layout/post.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/menu/options_post.xml" value="0.176" />
         <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/NMedia/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />

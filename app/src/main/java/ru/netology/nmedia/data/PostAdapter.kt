@@ -1,18 +1,20 @@
 package ru.netology.nmedia.data
 
 import android.annotation.SuppressLint
-import android.app.Activity
+import android.content.Intent
+import android.content.Intent.ACTION_VIEW
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.lifecycle.LiveData
+import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.MainActivity
 import ru.netology.nmedia.Post
 import ru.netology.nmedia.R
-import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.databinding.PostBinding
 import kotlin.properties.Delegates
 
@@ -22,11 +24,11 @@ internal class PostAdapter(
     private val shareClicked: (Post) -> Unit,
     private val deleteClicked: (Post) -> Unit,
     private val editClicked: (Post) -> Unit,
+    //private val playClicked: (Post) -> Unit,
 ) : ListAdapter<Post, PostAdapter.ViewHolder>(Diffcallback) {
     var posts: List<Post> by Delegates.observable(emptyList()) { _, _, _ ->
         notifyDataSetChanged()
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = PostBinding.inflate(inflater, parent, false)
@@ -49,10 +51,8 @@ internal class PostAdapter(
             oldItem != newItem
     }
 
-
     inner class ViewHolder(private val postBinding: PostBinding) :
         RecyclerView.ViewHolder(postBinding.root) {
-
 
         @SuppressLint("SetTextI18n")
         fun bind(post: Post) = with(postBinding) {
@@ -63,11 +63,28 @@ internal class PostAdapter(
                     setOnMenuItemClickListener { menuItem ->
                         when (menuItem.itemId) {
                             R.id.remove -> {
-                                //println(post)
                                 deleteClicked(post)
                                 true
                             }
                             R.id.edit -> {
+                                    val intent = Intent().apply {
+                                    action = Intent.ACTION_SEND
+                                    putExtra(Intent.EXTRA_TEXT, post.content)
+                                    type = "text/plain"
+                                }
+                                startActivity(root.context, intent, null)
+
+                                //val activityLauncher = registerForActivityResult
+
+                                // в итоге я хочу взять возвращенную EdiPostActivity строку,
+                                // и с пмощью post.copy(content = возвращенный результат)
+                                // и скормить новый объект post функции editClicked как ниже
+                                //о он не хочет работать с активити здесь
+                                // хочет только в MainActivity
+                                // но я не понимаю как мне отсуда вызвать функцию,
+                                // которая находится в MainActivity
+
+                                //MainActivity.getNewContent(post)
                                 editClicked(post)
                                 true
                             }
@@ -80,7 +97,6 @@ internal class PostAdapter(
             postBinding.date.setText(post.date)
             postBinding.content.setText(post.content)
 
-
             postBinding.likes.setText((post.liked).toString())
             postBinding.likes.isChecked = post.likedbyMe
             postBinding.likes.setIconResource(R.drawable.ic_likes_favorites_red)
@@ -89,7 +105,11 @@ internal class PostAdapter(
             postBinding.shares.isChecked = post.repostsQ > 0
             postBinding.shares.setIconResource(R.drawable.allshares)
 
-
+            if (post.video != null) {
+                postBinding.play.setVisibility(android.view.View.VISIBLE)
+            } else {
+                postBinding.play.setVisibility(android.view.View.GONE)
+            }
 
             if (post.edited == true) {
                 postBinding.edited.setText(postBinding.edited.context.getText(R.string.edited))
@@ -97,22 +117,37 @@ internal class PostAdapter(
             } else {
                 postBinding.edited.setVisibility(android.view.View.GONE)
             }
+
             postBinding.likes.setOnClickListener {
                 onLikeClicked(post)
             }
+
             postBinding.shares.setOnClickListener {
+                val intent = Intent().apply{
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, post.content)
+                    type = "text/plain"
+                }
+                val shareIntent = Intent.createChooser(
+                    intent, "Выберите приложение"
+                )
+                startActivity(postBinding.root.context, shareIntent, null)
                 shareClicked(post)
+            }
+
+            postBinding.play.setOnClickListener {
+                val website = post.video
+                val intent = Intent(ACTION_VIEW, Uri.parse(website))
+                startActivity(postBinding.root.context, intent, null)
             }
 
             postBinding.menuButton.setOnClickListener {
                 postBinding.menuButton.isChecked = true
-                println(postBinding.menuButton.isChecked)
                 popupMenu.show()
             }
 
-            popupMenu.setOnDismissListener(){
+            popupMenu.setOnDismissListener() {
                 postBinding.menuButton.isChecked = false
-                println(postBinding.menuButton.isChecked)
             }
         }
     }

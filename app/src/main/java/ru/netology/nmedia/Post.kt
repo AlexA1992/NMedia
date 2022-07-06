@@ -8,5 +8,6 @@ data class Post (
     var date: String,
     val author: String,
     var repostsQ: Int,
-    var edited: Boolean
+    var edited: Boolean,
+    val video: String?
 )

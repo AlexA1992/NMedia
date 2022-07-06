@@ -1,35 +1,57 @@
 package ru.netology.nmedia.data
 
+import android.content.Context
+import android.content.Intent
+import android.content.Intent.ACTION_VIEW
+import android.net.Uri
+import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import ru.netology.nmedia.MainActivity
-import ru.netology.nmedia.Post
-import ru.netology.nmedia.R
+import ru.netology.nmedia.*
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.getCurrentDateTime
-import ru.netology.nmedia.toString
+
 class PostRepo() : Repository {
-
     val date = getCurrentDateTime()
-    var dateInString = date.toString("dd/MM/yyyy HH:mm:ss")
-    override val posts = MutableLiveData(
-
-        List(10) { index ->
+    private var dateInString = date.toString("dd/MM/yyyy HH:mm:ss")
+    override val posts: MutableLiveData<List<Post>> = MutableLiveData(
+        listOf<Post>(
             Post(
-                index + 1,
+                1,
                 0,
                 false,
-                "Типа какой-то контент.... $index",
+                "Типа какой-то контент.... ",
                 dateInString,
                 "Нетология - школа ...",
                 0,
-                false
-            )
-        }
-    )
-
+                false,
+                "https://www.google.com"
+            ),
+            Post(
+                2,
+                0,
+                false,
+                "Типа какой-то контент.... 2",
+                dateInString,
+                "Нетология - школа ...",
+                0,
+                false,
+                null
+            ),
+            Post(
+                3,
+                0,
+                false,
+                "Типа какой-то контент.... 3",
+                dateInString,
+                "Нетология - школа ...",
+                0,
+                false,
+                "https://www.yandex.ru"
+            )))
 
     override fun sharePlus(postId: Int) {
         A.allPosts?.map {
@@ -67,30 +89,18 @@ class PostRepo() : Repository {
     }
 
     override fun save(post: Post) {
-        println("post.id ${post.id}")
-        println("PostRepo().allPosts?.size ${allPosts?.size?.plus(1)}")
         if(post.id == A.allPosts?.size?.plus(1))  {
-//            println("post.id ${post.id}")
-//            println("PostRepo().allPosts?.size ${PostRepo().allPosts?.size?.plus(1)}")
-
             insert(post)
         } else update(post)
     }
 
-
-
-    //private val nextId = POSTS_NOW
     private fun insert(post: Post) {
         post.id = A.allPosts?.size?.plus(1)!!
-        println("old allPosts $allPosts")
         val newPostList = A.allPosts?.reversed()
         if (newPostList != null) {
-            println("old posts.value ${posts.value}")
             posts.value = newPostList.plus(post).reversed()
-            println("new posts.value ${posts.value}")
         }
         A.allPosts = posts.value
-        println("new allPosts $allPosts")
     }
 
     private fun update(post: Post) {
@@ -107,6 +117,8 @@ class PostRepo() : Repository {
 
     companion object A{
         var allPosts: List<Post>? = PostRepo().posts.value
-            //get() = checkNotNull(PostRepo().posts.value)
     }
+
+
+
 }

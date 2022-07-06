@@ -11,4 +11,9 @@
     <string name="edit" translatable="true">Edit this</string>
     <string name="edited" translatable="false">edited</string>
     <string name="the_description" translatable="false">the description</string>
+    <string name="play">Play the video</string>
+    <string name="before_editing">before editing</string>
+    <string name="save_button">Save button</string>
+    <string name="save">Save</string>
+    <string name="your_new_text">your new text</string>
 </resources>
