@@ -33,13 +33,13 @@ class MainActivity : AppCompatActivity() {
             adapter1.posts = posts
         }
 
-        binding.save.setOnClickListener {
-            val theContent = binding.newPost.text.toString()
-            viewModel.onSaveButtonClicked(theContent)
-            Toast.makeText(layoutInflater.context, "Done", Toast.LENGTH_SHORT).show()
-            binding.save.clearFocus()
-            binding.save.hideKeyboard()
-        }
+//        binding.save.setOnClickListener {
+//            val theContent = binding.newPost.text.toString()
+//            viewModel.onSaveButtonClicked(theContent)
+//            Toast.makeText(layoutInflater.context, "Done", Toast.LENGTH_SHORT).show()
+//            binding.save.clearFocus()
+//            binding.save.hideKeyboard()
+//        }
 
         binding.cancel.setOnClickListener {
             viewModel.onCancelButtonClicked()
@@ -57,9 +57,9 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         viewModel.currentPost.observe(this) { currentPost ->
-            val newContent = currentPost?.content
-            println(newContent) // в этой строке показывается правильное значение - отредактированное
-            binding.newPost.setText(newContent.toString()) // не работает
+//            val newContent = currentPost?.content
+//            println(newContent) // в этой строке показывается правильное значение - отредактированное
+            //binding.newPost.setText(newContent.toString()) // не работает
             if (currentPost != null) {
                 editLauncher.launch(currentPost.content)
             }
