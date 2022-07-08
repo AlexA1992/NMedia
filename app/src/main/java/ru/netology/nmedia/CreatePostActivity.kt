@@ -6,49 +6,42 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContract
-import ru.netology.nmedia.databinding.ActivityEditPostBinding
+import ru.netology.nmedia.databinding.ActivityCreatePostBinding
+import ru.netology.nmedia.databinding.ActivityEditPostBinding.inflate
+import ru.netology.nmedia.databinding.PostBinding.inflate
 
-class EditPostActivity : AppCompatActivity() {
+class CreatePostActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val binding = ActivityEditPostBinding.inflate(layoutInflater)
+        val binding = ActivityCreatePostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val intent = intent
+        val editField = binding.newPost
 
-        val editField = binding.newText
-        val theText = intent.getStringExtra(Intent.EXTRA_TEXT)
-
-        if (theText.isNullOrBlank()) return else editField.setText(theText)
-
-        binding.saveButton.setOnClickListener {
+        binding.saveCreated.setOnClickListener {
             val newText = editField.text.toString()
+            println(newText)
             if (newText.isBlank()) {
                 setResult(Activity.RESULT_CANCELED, intent)
             } else {
                 val newIntent = Intent()
-                newIntent.putExtra("content", newText)
+                newIntent.putExtra("newPost", newText)
                 setResult(Activity.RESULT_OK, newIntent)
             }
             finish()
         }
     }
 
-    object ResultContract : ActivityResultContract<String, String?>() {
-        override fun createIntent(context: Context, input: String) =
-            Intent(context, EditPostActivity::class.java).putExtra(Intent.EXTRA_TEXT, input)
+    object ResultCreateContract : ActivityResultContract<Unit, String?>() {
+        override fun createIntent(context: Context, input: Unit) =
+            Intent(context, CreatePostActivity::class.java)
 
         override fun parseResult(resultCode: Int, intent: Intent?): String {
             var theReturn: String = ""
             if (resultCode == Activity.RESULT_OK) {
-                theReturn = intent?.getStringExtra("content").toString()
+                theReturn = intent?.getStringExtra("newPost").toString()
             }
             return theReturn
         }
-
-
-
-
     }
 }

@@ -106,15 +106,6 @@ internal class PostAdapter(
             }
 
             postBinding.shares.setOnClickListener {
-                val intent = Intent().apply{
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, post.content)
-                    type = "text/plain"
-                }
-                val shareIntent = Intent.createChooser(
-                    intent, "Выберите приложение"
-                )
-                startActivity(postBinding.root.context, shareIntent, null)
                 shareClicked(post)
             }
 

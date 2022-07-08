@@ -12,13 +12,17 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     val likeData = repository.posts
 
     //fun playClicked(post: Post) = repository.playPost(post.video)
-    fun shareClicked(post: Post) = repository.sharePlus(post.id)
+    fun shareClicked(post: Post) {
+        repository.sharePlus(post.id)
+        shareActionNeeded.value = post.content
+    }
     fun likesClicked(post: Post) = repository.likesChange(post.id)
     fun onDeleteClicked(post: Post) = repository.delete(post.id)
 
     fun onEditClicked(post: Post){
         currentPost.value = post
     }
+    val shareActionNeeded = SingleLiveEvent<String>()
 
     val currentPost = MutableLiveData<Post?>()
     val date = getCurrentDateTime()

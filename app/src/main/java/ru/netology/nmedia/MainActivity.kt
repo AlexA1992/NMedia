@@ -33,33 +33,31 @@ class MainActivity : AppCompatActivity() {
             adapter1.posts = posts
         }
 
-//        binding.save.setOnClickListener {
-//            val theContent = binding.newPost.text.toString()
-//            viewModel.onSaveButtonClicked(theContent)
-//            Toast.makeText(layoutInflater.context, "Done", Toast.LENGTH_SHORT).show()
+        binding.create.setOnClickListener {
+            //val theContent = binding.newPost.text.toString()
+            createLauncher.launch()
+        }
+
+//        binding.cancel.setOnClickListener {
+//            viewModel.onCancelButtonClicked()
+//            Toast.makeText(layoutInflater.context, "O-o-u-p-s", Toast.LENGTH_SHORT).show()
 //            binding.save.clearFocus()
 //            binding.save.hideKeyboard()
 //        }
 
-        binding.cancel.setOnClickListener {
-            viewModel.onCancelButtonClicked()
-            Toast.makeText(layoutInflater.context, "O-o-u-p-s", Toast.LENGTH_SHORT).show()
-            binding.save.clearFocus()
-            binding.save.hideKeyboard()
+        viewModel.shareActionNeeded.observe(this) { content ->
+            val intent = Intent().apply{
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, content)
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(
+                intent, "Выберите приложение"
+            )
+            startActivity(shareIntent)
         }
 
-//        viewModel.currentPost.observe(this) { currentPost ->
-//            if (currentPost != null) {
-//                binding.newPost.setText(currentPost.content.toString())
-//            } else {
-//                binding.newPost.setText("")
-//            }
-//        }
-
         viewModel.currentPost.observe(this) { currentPost ->
-//            val newContent = currentPost?.content
-//            println(newContent) // в этой строке показывается правильное значение - отредактированное
-            //binding.newPost.setText(newContent.toString()) // не работает
             if (currentPost != null) {
                 editLauncher.launch(currentPost.content)
             }
@@ -69,6 +67,12 @@ class MainActivity : AppCompatActivity() {
     val editLauncher = registerForActivityResult(EditPostActivity.ResultContract) {
         val content = it ?: return@registerForActivityResult
         viewModel.onSaveButtonClicked(content)
+    }
+
+    val createLauncher = registerForActivityResult(CreatePostActivity.ResultCreateContract) {
+        val content = it ?: return@registerForActivityResult
+        viewModel.onSaveButtonClicked(content)
+        Toast.makeText(layoutInflater.context, "Done", Toast.LENGTH_SHORT).show()
     }
 }
 

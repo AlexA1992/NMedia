@@ -16,4 +16,7 @@
     <string name="save_button">Save button</string>
     <string name="save">Save</string>
     <string name="your_new_text">your new text</string>
+    <string name="create_post">create post</string>
+    <string name="_0">0</string>
+    <string name="your_new_post">your new post</string>
 </resources>

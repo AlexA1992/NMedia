@@ -28,44 +28,58 @@
 </androidx.constraintlayout.widget.Barrier>
 
 
-    <EditText
-        android:id="@+id/newPost"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:hint="@string/post_text"
-        android:inputType="textMultiLine"
-        android:background="@android:color/transparent"
-        android:padding="@dimen/cardview_compat_inset_shadow"
-        android:importantForAutofill="no"
-        app:layout_constraintTop_toBottomOf="@id/saveBarrier"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/save"
-        app:layout_constraintStart_toStartOf="parent"/>
+<!--    <EditText-->
+<!--        android:id="@+id/newPost"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:hint="@string/post_text"-->
+<!--        android:inputType="textMultiLine"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        android:padding="@dimen/cardview_compat_inset_shadow"-->
+<!--        android:importantForAutofill="no"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/saveBarrier"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/save"-->
+<!--        app:layout_constraintStart_toStartOf="parent"/>-->
 
-    <ImageButton
-        android:id="@+id/cancel"
+<!--    <ImageButton-->
+<!--        android:id="@+id/cancel"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@id/newPost"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/save"-->
+<!--        app:layout_constraintTop_toTopOf="@id/newPost"-->
+<!--        app:srcCompat="@drawable/ic_baseline_cancel_24"-->
+<!--        android:contentDescription="@string/the_description" />-->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/save"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="@dimen/cardview_compat_inset_shadow"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@id/newPost"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:srcCompat="@drawable/ic_baseline_check_circle_24"-->
+<!--        android:contentDescription="@string/the_description" />-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:contentDescription="@string/create_post"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="10dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/newPost"
-        app:layout_constraintBottom_toTopOf="@id/save"
-        app:layout_constraintTop_toTopOf="@id/newPost"
-        app:srcCompat="@drawable/ic_baseline_cancel_24"
-        android:contentDescription="@string/the_description" />
-
-    <ImageButton
-        android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
-        android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/newPost"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@drawable/ic_baseline_check_circle_24"
-        android:contentDescription="@string/the_description" />
-
+        android:layout_marginEnd="10dp"
+        app:backgroundTint="@color/orange"
+        app:srcCompat="@drawable/ic_round_add_24"
+        app:rippleColor="@color/white"
+        app:tint="@color/white">
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 </androidx.constraintlayout.widget.ConstraintLayout>
