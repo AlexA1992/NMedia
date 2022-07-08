@@ -1,32 +1,26 @@
 package ru.netology.nmedia
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
-import android.content.Intent.ACTION_VIEW
-import android.net.Uri
 import android.os.Bundle
-import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.result.launch
 import androidx.activity.viewModels
 import ru.netology.nmedia.data.PostViewModel
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import ru.netology.nmedia.data.PostAdapter
 import ru.netology.nmedia.data.hideKeyboard
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.databinding.PostBinding
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: PostViewModel by viewModels()
-    private val binding = ActivityMainBinding.inflate(layoutInflater)
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val adapter1 = PostAdapter(
             viewModel::likesClicked,
@@ -54,27 +48,30 @@ class MainActivity : AppCompatActivity() {
             binding.save.hideKeyboard()
         }
 
+//        viewModel.currentPost.observe(this) { currentPost ->
+//            if (currentPost != null) {
+//                binding.newPost.setText(currentPost.content.toString())
+//            } else {
+//                binding.newPost.setText("")
+//            }
+//        }
+
         viewModel.currentPost.observe(this) { currentPost ->
-            binding.newPost.setText(currentPost?.content.toString())
+            val newContent = currentPost?.content
+            println(newContent) // в этой строке показывается правильное значение - отредактированное
+            binding.newPost.setText(newContent.toString()) // не работает
+            if (currentPost != null) {
+                editLauncher.launch(currentPost.content)
+            }
         }
     }
 
-//    companion object{
-//        private lateinit var context: Context
-//        fun getNewContent(post: Post){
-//            val intent = Intent().apply {
-//                action = Intent.ACTION_SEND
-//                type = "plain/text"
-//                putExtra(Intent.EXTRA_TEXT, post.content)
-//            }
-//            startActivity(context, intent, null)
-//
-//            val activityLauncher = registerForActivityResult{
-//
-//            }
-//        }
-//    }
-
+    val editLauncher = registerForActivityResult(EditPostActivity.ResultContract) {
+        val content = it ?: return@registerForActivityResult
+        viewModel.onSaveButtonClicked(content)
+    }
 }
+
+
 
 

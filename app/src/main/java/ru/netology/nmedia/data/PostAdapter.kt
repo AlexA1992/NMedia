@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import ru.netology.nmedia.EditPostActivity
 import ru.netology.nmedia.MainActivity
 import ru.netology.nmedia.Post
 import ru.netology.nmedia.R
@@ -67,24 +68,6 @@ internal class PostAdapter(
                                 true
                             }
                             R.id.edit -> {
-                                    val intent = Intent().apply {
-                                    action = Intent.ACTION_SEND
-                                    putExtra(Intent.EXTRA_TEXT, post.content)
-                                    type = "text/plain"
-                                }
-                                startActivity(root.context, intent, null)
-
-                                //val activityLauncher = registerForActivityResult
-
-                                // в итоге я хочу взять возвращенную EdiPostActivity строку,
-                                // и с пмощью post.copy(content = возвращенный результат)
-                                // и скормить новый объект post функции editClicked как ниже
-                                //о он не хочет работать с активити здесь
-                                // хочет только в MainActivity
-                                // но я не понимаю как мне отсуда вызвать функцию,
-                                // которая находится в MainActivity
-
-                                //MainActivity.getNewContent(post)
                                 editClicked(post)
                                 true
                             }
@@ -140,6 +123,7 @@ internal class PostAdapter(
                 val intent = Intent(ACTION_VIEW, Uri.parse(website))
                 startActivity(postBinding.root.context, intent, null)
             }
+
 
             postBinding.menuButton.setOnClickListener {
                 postBinding.menuButton.isChecked = true

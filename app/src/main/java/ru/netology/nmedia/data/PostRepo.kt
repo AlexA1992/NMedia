@@ -53,6 +53,7 @@ class PostRepo() : Repository {
                 "https://www.yandex.ru"
             )))
 
+
     override fun sharePlus(postId: Int) {
         A.allPosts?.map {
             if (it.id == postId) {

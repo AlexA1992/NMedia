@@ -1,18 +1,13 @@
 package ru.netology.nmedia.data
 
 import android.app.Application
-import android.content.Context
 import android.content.Intent
-import android.content.Intent.ACTION_VIEW
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import ru.netology.nmedia.*
 
-class PostViewModel : ViewModel() {
+class PostViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = PostRepo()
     val likeData = repository.posts
 
@@ -21,11 +16,11 @@ class PostViewModel : ViewModel() {
     fun likesClicked(post: Post) = repository.likesChange(post.id)
     fun onDeleteClicked(post: Post) = repository.delete(post.id)
 
-    fun onEditClicked(post: Post) {
+    fun onEditClicked(post: Post){
         currentPost.value = post
     }
 
-    val currentPost = MutableLiveData<Post?>(null)
+    val currentPost = MutableLiveData<Post?>()
     val date = getCurrentDateTime()
     val dateInString = date.toString("dd/MM/yyyy HH:mm:ss")
 
@@ -33,9 +28,8 @@ class PostViewModel : ViewModel() {
         if (newPostContent.isBlank()) return
         val nextId = PostRepo.allPosts?.size?.plus(1)!!
         val Post = currentPost.value?.copy(
-           content = newPostContent
-        )?:
-        Post(
+            content = newPostContent
+        ) ?: Post(
             id = nextId,
             author = "Нетология - школа ...",
             content = "$newPostContent $nextId",

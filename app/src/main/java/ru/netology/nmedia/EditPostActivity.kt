@@ -16,28 +16,47 @@ class EditPostActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val intent = intent
-        if (intent.action != Intent.ACTION_SEND) return
 
         val editField = binding.newText
         val theText = intent.getStringExtra(Intent.EXTRA_TEXT)
 
         if (theText.isNullOrBlank()) return else editField.setText(theText)
-        val newText = editField.text
+
         binding.saveButton.setOnClickListener {
+            val newText = editField.text.toString()
             println(newText)
-            if(newText.isNullOrBlank()) {
+            if (newText.isBlank()) {
                 setResult(Activity.RESULT_CANCELED, intent)
             } else {
                 val newIntent = Intent()
-                intent.putExtra("content", newText)
+                intent.putExtra(POST_CONTENT_EXTRA_KEY, newText)
                 setResult(Activity.RESULT_OK, newIntent)
             }
+            finish()
         }
     }
 
+    companion object {
+        const val POST_CONTENT_EXTRA_KEY = "postContent"
+    }
+
+//    object ResultContract : ActivityResultContract<String, String?>() {
+//        override fun createIntent(context: Context, input: String) =
+//            Intent(context, this::class.java)
+//
+//        override fun parseResult(resultCode: Int, intent: Intent?): String? =
+//            if (resultCode == Activity.RESULT_OK) {
+//                println("RESULT_OK")
+//                intent?.getStringExtra(Intent.EXTRA_TEXT)
+//            } else {
+//                println("No Intent")
+//                null
+//            }
+//    }
+
     object ResultContract : ActivityResultContract<String, String?>() {
         override fun createIntent(context: Context, input: String) =
-            Intent(context, EditPostActivity::class.java)
+            Intent(context, EditPostActivity::class.java).putExtra(Intent.EXTRA_TEXT, input)
 
         override fun parseResult(resultCode: Int, intent: Intent?): String? {
             if (resultCode != RESULT_OK) return null
