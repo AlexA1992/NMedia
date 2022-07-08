@@ -24,20 +24,15 @@ class EditPostActivity : AppCompatActivity() {
 
         binding.saveButton.setOnClickListener {
             val newText = editField.text.toString()
-            println(newText)
             if (newText.isBlank()) {
                 setResult(Activity.RESULT_CANCELED, intent)
             } else {
                 val newIntent = Intent()
-                intent.putExtra(POST_CONTENT_EXTRA_KEY, newText)
+                newIntent.putExtra("content", newText)
                 setResult(Activity.RESULT_OK, newIntent)
             }
             finish()
         }
-    }
-
-    companion object {
-        const val POST_CONTENT_EXTRA_KEY = "postContent"
     }
 
 //    object ResultContract : ActivityResultContract<String, String?>() {
@@ -58,10 +53,16 @@ class EditPostActivity : AppCompatActivity() {
         override fun createIntent(context: Context, input: String) =
             Intent(context, EditPostActivity::class.java).putExtra(Intent.EXTRA_TEXT, input)
 
-        override fun parseResult(resultCode: Int, intent: Intent?): String? {
-            if (resultCode != RESULT_OK) return null
-            intent ?: return null
-            return intent.getStringExtra("content")
+        override fun parseResult(resultCode: Int, intent: Intent?): String {
+            var theReturn: String = ""
+            if (resultCode == Activity.RESULT_OK) {
+                theReturn = intent?.getStringExtra("content").toString()
+            }
+            return theReturn
         }
+
+
+
+
     }
 }
