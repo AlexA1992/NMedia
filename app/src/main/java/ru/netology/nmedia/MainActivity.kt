@@ -2,6 +2,7 @@ package ru.netology.nmedia
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -10,6 +11,8 @@ import androidx.activity.viewModels
 import ru.netology.nmedia.data.PostViewModel
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.edit
+import com.google.android.material.snackbar.Snackbar
 import ru.netology.nmedia.data.PostAdapter
 import ru.netology.nmedia.data.hideKeyboard
 import ru.netology.nmedia.databinding.ActivityMainBinding
@@ -22,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val adapter1 = PostAdapter(
             viewModel::likesClicked,
             viewModel::shareClicked,

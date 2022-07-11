@@ -15,12 +15,12 @@ class CreatePostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityCreatePostBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.saveCreated.clearFocus()
         val editField = binding.newPost
 
         binding.saveCreated.setOnClickListener {
             val newText = editField.text.toString()
-            println(newText)
+            //println(newText)
             if (newText.isBlank()) {
                 setResult(Activity.RESULT_CANCELED, intent)
             } else {

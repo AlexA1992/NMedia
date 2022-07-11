@@ -1,5 +1,8 @@
 package ru.netology.nmedia
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Post (
     var id: Int,
     var liked: Int,
