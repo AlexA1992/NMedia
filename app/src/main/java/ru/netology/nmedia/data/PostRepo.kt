@@ -55,19 +55,19 @@ class PostRepo() : Repository {
 
 
     override fun sharePlus(postId: Int) {
-        A.allPosts?.map {
+        allPosts?.map {
             if (it.id == postId) {
                 val newPost = it.copy(repostsQ = it.repostsQ + 1)
                 it.repostsQ = newPost.repostsQ
             }
         }
-        posts.value = A.allPosts
+        posts.value = allPosts
     }
 
-    override fun likesChange(postId: Int) {
+    override fun likesChange(post: Post) {
         //println(postId)
-        A.allPosts?.map {
-            if (it.id == postId) {
+        allPosts?.map {
+            if (it.id == post.id) {
                 //println(it)
                 it.likedbyMe = !it.likedbyMe
                 if (it.likedbyMe == true) {
@@ -79,35 +79,35 @@ class PostRepo() : Repository {
                 }
             }
         }
-        posts.value = A.allPosts
+        posts.value = allPosts
     }
 
     override fun delete(postId: Int) {
-        posts.value = A.allPosts?.filter {
+        posts.value = allPosts?.filter {
             it.id != postId
         }
-        A.allPosts = posts.value
+        allPosts = posts.value
     }
 
     override fun save(post: Post) {
-        if(post.id == A.allPosts?.size?.plus(1))  {
+        if(post.id == allPosts?.size?.plus(1))  {
             insert(post)
         } else update(post)
     }
 
     private fun insert(post: Post) {
-        post.id = A.allPosts?.size?.plus(1)!!
-        val newPostList = A.allPosts?.reversed()
+        post.id = allPosts?.size?.plus(1)!!
+        val newPostList = allPosts?.reversed()
         if (newPostList != null) {
             posts.value = newPostList.plus(post).reversed()
         }
-        A.allPosts = posts.value
+        allPosts = posts.value
     }
 
     private fun update(post: Post) {
         val date = getCurrentDateTime()
         val dateInString = date.toString("yyyy/MM/dd HH:mm:ss")
-        posts.value = A.allPosts?.map{
+        posts.value = allPosts?.map{
             if(it.id == post.id) {
                 post.edited = true
                 post.date = dateInString
@@ -116,7 +116,7 @@ class PostRepo() : Repository {
         }
     }
 
-    companion object A{
+    companion object {
         var allPosts: List<Post>? = PostRepo().posts.value
     }
 

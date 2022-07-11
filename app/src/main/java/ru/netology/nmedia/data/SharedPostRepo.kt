@@ -22,15 +22,15 @@ import kotlinx.serialization.json.Json
 class SharedPostRepo(
     application: Application
 ) : Repository {
-//    var allPosts: List<Post>?
-//        get() = checkNotNull(posts.value)
-//        set(value) {
-//            prefer.edit {
-//                val serializedPosts = Json.encodeToString(value)
-//                putString(POSTS_PREF_KEY, serializedPosts)
-//            }
-//            posts.value = allPosts
-//        }
+    var allPosts: List<Post>?
+        get() = checkNotNull(posts.value)
+        set(value) {
+            prefer.edit {
+                val serializedPosts = Json.encodeToString(value)
+                putString(POSTS_PREF_KEY, serializedPosts)
+            }
+            posts.value = allPosts
+        }
 
     private val prefer = application.getSharedPreferences(
         "name", Context.MODE_PRIVATE
@@ -94,25 +94,26 @@ class SharedPostRepo(
                 it.repostsQ = newPost.repostsQ
             }
         }
-        //posts.value = allPosts
+        posts.value = allPosts
     }
 
-    override fun likesChange(postId: Int) {
-        //println(postId)
-        allPosts?.map {
-            if (it.id == postId) {
-                //println(it)
-                it.likedbyMe = !it.likedbyMe
-                if (it.likedbyMe == true) {
-                    val newLiked = it.copy(liked = it.liked + 1)
-                    it.liked = newLiked.liked
+    override fun likesChange(post: Post) {
+
+        allPosts?.first {
+            it.id == post.id}
+            .apply {
+                this?.likedbyMe = !this?.likedbyMe!!
+                if (this?.likedbyMe == true) {
+                    val newLiked = this.copy(liked = this.liked + 1)
+                    this.liked = newLiked.liked
                 } else {
-                    val newLiked = it.copy(liked = it.liked - 1)
-                    it.liked = newLiked.liked
+                    val newLiked = this?.copy(liked = this.liked - 1)
+                    if (newLiked != null) {
+                        this?.liked = newLiked.liked
+                    }
                 }
             }
-        }
-        //posts.value = allPosts
+        posts.value = allPosts
     }
 
     override fun delete(postId: Int) {
@@ -123,13 +124,14 @@ class SharedPostRepo(
     }
 
     override fun save(post: Post) {
+        println("post.id ${post.id}")
         if (post.id == allPosts?.size?.plus(1)) {
             insert(post)
         } else update(post)
     }
 
     private fun insert(post: Post) {
-        println(post)
+        println("post in insert $post")
         post.id = allPosts?.size?.plus(1)!!
         val newPostList = allPosts?.reversed()
         if (newPostList != null) {

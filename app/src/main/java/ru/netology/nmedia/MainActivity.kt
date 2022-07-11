@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.edit
 import com.google.android.material.snackbar.Snackbar
 import ru.netology.nmedia.data.PostAdapter
+import ru.netology.nmedia.data.SharedPostRepo
 import ru.netology.nmedia.data.hideKeyboard
 import ru.netology.nmedia.databinding.ActivityMainBinding
 
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         viewModel.shareActionNeeded.observe(this) { content ->
-            val intent = Intent().apply{
+            val intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, content)
                 type = "text/plain"

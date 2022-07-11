@@ -8,7 +8,7 @@ interface Repository {
     val posts: LiveData<List<Post>>
 
     fun sharePlus(postId: Int)
-    fun likesChange(postId: Int)
+    fun likesChange(post: Post)
     fun delete(postId: Int)
     fun save(post: Post)
     //fun playPost(postVideo: String?)

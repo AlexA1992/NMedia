@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.*
+import ru.netology.nmedia.data.SharedPostRepo.Companion.allPosts
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
     //private val repository = PostRepo()
@@ -17,12 +18,14 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         repository.sharePlus(post.id)
         shareActionNeeded.value = post.content
     }
-    fun likesClicked(post: Post) = repository.likesChange(post.id)
+
+    fun likesClicked(post: Post) = repository.likesChange(post)
     fun onDeleteClicked(post: Post) = repository.delete(post.id)
 
-    fun onEditClicked(post: Post){
+    fun onEditClicked(post: Post) {
         currentPost.value = post
     }
+
     val shareActionNeeded = SingleLiveEvent<String>()
 
     val currentPost = MutableLiveData<Post?>()
@@ -31,9 +34,9 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     fun onSaveButtonClicked(newPostContent: String) {
         if (newPostContent.isBlank()) return
-        val nextId = SharedPostRepo.allPosts?.size?.plus(1)!!
-        println(nextId)
-        val Post = currentPost.value?.copy(
+        val nextId = allPosts?.size?.plus(1)!!
+        println("nextId $nextId")
+        val post = currentPost.value?.copy(
             content = newPostContent
         ) ?: Post(
             id = nextId,
@@ -46,8 +49,8 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             edited = false,
             video = null
         )
-
-        repository.save(Post)
+        println("post $post")
+        repository.save(post)
         currentPost.value = null
     }
 
