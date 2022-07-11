@@ -6,11 +6,12 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.*
-import ru.netology.nmedia.data.SharedPostRepo.Companion.allPosts
+
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
     //private val repository = PostRepo()
-    private val repository = SharedPostRepo(application)
+    //private val repository = SharedPostRepo(application)
+    private val repository = SharedPostRepoFile(application)
     val likeData = repository.posts
 
     //fun playClicked(post: Post) = repository.playPost(post.video)
@@ -34,7 +35,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     fun onSaveButtonClicked(newPostContent: String) {
         if (newPostContent.isBlank()) return
-        val nextId = allPosts?.size?.plus(1)!!
+        val nextId = repository.allPosts.orEmpty().size + 1
         println("nextId $nextId")
         val post = currentPost.value?.copy(
             content = newPostContent
@@ -53,8 +54,8 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         repository.save(post)
         currentPost.value = null
     }
-
-    fun onCancelButtonClicked() {
-        currentPost.value = null
-    }
+//
+//    fun onCancelButtonClicked() {
+//        currentPost.value = null
+//    }
 }

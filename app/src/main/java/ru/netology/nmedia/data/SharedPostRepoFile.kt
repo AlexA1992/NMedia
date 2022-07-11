@@ -13,30 +13,35 @@ import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import ru.netology.nmedia.*
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.lang.reflect.Type
 
-class SharedPostRepo(
-    application: Application
+class SharedPostRepoFile(
+    val application: Application
 ) : Repository {
+    val gson = Gson()
+    val type = TypeToken.getParameterized(List::class.java, Post::class.java).type
     var allPosts: List<Post>?
         get() = checkNotNull(posts.value) {
             "Data is null"
         }
         set(value) {
-            prefer.edit {
-                val serializedPosts = Json.encodeToString(value)
-                putString(POSTS_PREF_KEY, serializedPosts)
-            }
-            posts.value = allPosts
+            application.openFileOutput(POST_FILE_NAME, Context.MODE_PRIVATE)
+                .bufferedWriter().use {
+                    it.write(gson.toJson(value))
+                }
+            posts.value = value!!
         }
 
-    private val prefer = application.getSharedPreferences(
-        "name", Context.MODE_PRIVATE
-    )
+//    private val prefer = application.getSharedPreferences(
+//        "name", Context.MODE_PRIVATE
+//    )
 
 //    val date = getCurrentDateTime()
 //    private var dateInString = date.toString("dd/MM/yyyy HH:mm:ss")
@@ -82,12 +87,15 @@ class SharedPostRepo(
 //    )
 
     init {
-        val serializedPosts = prefer.getString(POSTS_PREF_KEY, null)
-        val postes = if (serializedPosts != null) {
-            Json.decodeFromString<List<Post>>(serializedPosts)
+        val postsFile = application.filesDir.resolve(POST_FILE_NAME)
+        val allposts: List<Post> = if (postsFile.exists()) {
+            val inpurStream = application.openFileInput(POST_FILE_NAME)
+            val reader = inpurStream.bufferedReader()
+            reader.use { gson.fromJson(it, type) }
         } else emptyList()
-        posts = MutableLiveData(postes)
+        posts = MutableLiveData(allposts)
     }
+
 
     override fun sharePlus(postId: Int) {
         allPosts?.map {
@@ -163,5 +171,6 @@ class SharedPostRepo(
 
     companion object {
         const val POSTS_PREF_KEY = "posts"
+        const val POST_FILE_NAME = "posts.json"
     }
 }
