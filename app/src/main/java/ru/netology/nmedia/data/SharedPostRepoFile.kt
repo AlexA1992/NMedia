@@ -32,11 +32,14 @@ class SharedPostRepoFile(
             "Data is null"
         }
         set(value) {
+            println("value $value")
             application.openFileOutput(POST_FILE_NAME, Context.MODE_PRIVATE)
                 .bufferedWriter().use {
                     it.write(gson.toJson(value))
                 }
+            println("posts.value ${posts.value}")
             posts.value = value!!
+
         }
 
 //    private val prefer = application.getSharedPreferences(
@@ -47,7 +50,7 @@ class SharedPostRepoFile(
 //    private var dateInString = date.toString("dd/MM/yyyy HH:mm:ss")
 
     override val posts: MutableLiveData<List<Post>>
-    //=
+//    =
 //        MutableLiveData(
 //        listOf<Post>(
 //            Post(
@@ -87,6 +90,7 @@ class SharedPostRepoFile(
 //    )
 
     init {
+        println("init")
         val postsFile = application.filesDir.resolve(POST_FILE_NAME)
         val allposts: List<Post> = if (postsFile.exists()) {
             val inpurStream = application.openFileInput(POST_FILE_NAME)
@@ -94,26 +98,32 @@ class SharedPostRepoFile(
             reader.use { gson.fromJson(it, type) }
         } else emptyList()
         posts = MutableLiveData(allposts)
+        println("posts init ${posts.value}")
     }
 
 
     override fun sharePlus(postId: Int) {
+        //println(allPosts)
         allPosts?.map {
+            //println(it.repostsQ)
             if (it.id == postId) {
-                val newPost = it.copy(repostsQ = it.repostsQ + 1)
-                it.repostsQ = newPost.repostsQ
+                it.repostsQ += 1
+                //println(it.repostsQ)
             }
         }
-        posts.value = allPosts
+        //println(allPosts)
+        allPosts = posts.value
+        //println(posts.value)
     }
 
     override fun likesChange(post: Post) {
+        //println(allPosts)
         allPosts?.first {
             it.id == post.id
         }
             .apply {
                 this?.likedbyMe = !this?.likedbyMe!!
-                if (this?.likedbyMe == true) {
+                if (this.likedbyMe == true) {
                     val newLiked = this.copy(liked = this.liked + 1)
                     this.liked = newLiked.liked
                 } else {
@@ -121,7 +131,8 @@ class SharedPostRepoFile(
                     this.liked = newLiked.liked
                 }
             }
-        posts.value = allPosts
+        //println(allPosts)
+        allPosts = posts.value
     }
 
     override fun delete(postId: Int) {
@@ -134,29 +145,35 @@ class SharedPostRepoFile(
             }
         }
         allPosts = posts.value
-        println(allPosts)
+        //println(allPosts)
     }
 
     override fun save(post: Post) {
         println("post.id ${post.id}")
-        if (post.id == allPosts?.size?.plus(1)) {
-            insert(post)
-        } else update(post)
-    }
+        println(allPosts)
+        val found = allPosts?.any {
+            it.id == post.id
+            }
+
+        if(found == true) update(post) else insert(post)
+        }
 
     private fun insert(post: Post) {
         println("post in insert $post")
+        //println(allPosts?.last()?.id)
         if (allPosts?.isEmpty() == true) post.id = 1 else
             post.id = allPosts?.last()?.id?.plus(1)!!
+        //println(post)
         val newPostList = allPosts?.reversed()
         if (newPostList != null) {
             posts.value = newPostList.plus(post).reversed()
         }
         allPosts = posts.value
-        println(allPosts)
+        println("allPosts $allPosts")
     }
 
     private fun update(post: Post) {
+
         val date = getCurrentDateTime()
         val dateInString = date.toString("yyyy/MM/dd HH:mm:ss")
         allPosts?.map {
@@ -166,7 +183,7 @@ class SharedPostRepoFile(
                 post
             } else it
         }
-        println(allPosts)
+        allPosts = posts.value
     }
 
     companion object {

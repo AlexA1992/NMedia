@@ -5,14 +5,16 @@ import android.content.Intent
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.awaitAll
 import ru.netology.nmedia.*
+import kotlin.math.max
 
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
     //private val repository = PostRepo()
     //private val repository = SharedPostRepo(application)
     private val repository = SharedPostRepoFile(application)
-    val likeData = repository.posts
+    val data = repository.posts
 
     //fun playClicked(post: Post) = repository.playPost(post.video)
     fun shareClicked(post: Post) {
@@ -35,23 +37,36 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     fun onSaveButtonClicked(newPostContent: String) {
         if (newPostContent.isBlank()) return
-        val nextId = repository.allPosts.orEmpty().size + 1
+
+        var maxId = repository.allPosts?.maxOfOrNull {
+            it.id
+        }
+        if(maxId == null) maxId = 0
+        val nextId = maxId.plus(1)
         println("nextId $nextId")
+
         val post = currentPost.value?.copy(
             content = newPostContent
-        ) ?: Post(
-            id = nextId,
-            author = "Нетология - школа ...",
-            content = "$newPostContent $nextId",
-            date = dateInString,
-            liked = 0,
-            likedbyMe = false,
-            repostsQ = 0,
-            edited = false,
-            video = null
-        )
-        println("post $post")
-        repository.save(post)
+        ) ?: nextId.let {
+            nextId?.let { it1 ->
+                Post(
+                    id = it1,
+                    author = "Нетология - школа ...",
+                    content = "$newPostContent $nextId",
+                    date = dateInString,
+                    liked = 0,
+                    likedbyMe = false,
+                    repostsQ = 0,
+                    edited = false,
+                    video = null
+                )
+            }
+        }
+        //println("post $post")
+        println()
+        if (post != null) {
+            repository.save(post)
+        }
         currentPost.value = null
     }
 //

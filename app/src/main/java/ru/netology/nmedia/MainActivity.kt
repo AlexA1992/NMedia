@@ -34,21 +34,13 @@ class MainActivity : AppCompatActivity() {
             viewModel::onEditClicked,
         )
         binding.postsRecyclerView.adapter = adapter1
-        viewModel.likeData.observe(this) { posts ->
+        viewModel.data.observe(this) { posts ->
             adapter1.posts = posts
         }
 
         binding.create.setOnClickListener {
-            //val theContent = binding.newPost.text.toString()
             createLauncher.launch()
         }
-
-//        binding.cancel.setOnClickListener {
-//            viewModel.onCancelButtonClicked()
-//            Toast.makeText(layoutInflater.context, "O-o-u-p-s", Toast.LENGTH_SHORT).show()
-//            binding.save.clearFocus()
-//            binding.save.hideKeyboard()
-//        }
 
         viewModel.shareActionNeeded.observe(this) { content ->
             val intent = Intent().apply {
