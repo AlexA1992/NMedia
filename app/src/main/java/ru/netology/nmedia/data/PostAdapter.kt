@@ -7,14 +7,13 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.startActivity
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.netology.nmedia.EditPostActivity
-import ru.netology.nmedia.MainActivity
-import ru.netology.nmedia.Post
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.PostBinding
 import kotlin.properties.Delegates
@@ -25,6 +24,7 @@ internal class PostAdapter(
     private val shareClicked: (Post) -> Unit,
     private val deleteClicked: (Post) -> Unit,
     private val editClicked: (Post) -> Unit,
+    private val postClicked: (Post) -> Unit,
     //private val playClicked: (Post) -> Unit,
 ) : ListAdapter<Post, PostAdapter.ViewHolder>(Diffcallback) {
     var posts: List<Post> by Delegates.observable(emptyList()) { _, _, _ ->
@@ -57,6 +57,11 @@ internal class PostAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(post: Post) = with(postBinding) {
+            //работа с одним постом
+            postBinding.post.getViewById(R.id.content).setOnClickListener{
+                postClicked(post)
+            }
+
             val popupMenu by lazy {
                 //println(post)
                 PopupMenu(itemView.context, postBinding.menuButton).apply {
