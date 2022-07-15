@@ -39,15 +39,7 @@ class SharedPostRepoFile(
                 }
             println("posts.value ${posts.value}")
             posts.value = value!!
-
         }
-
-//    private val prefer = application.getSharedPreferences(
-//        "name", Context.MODE_PRIVATE
-//    )
-
-//    val date = getCurrentDateTime()
-//    private var dateInString = date.toString("dd/MM/yyyy HH:mm:ss")
 
     override val posts: MutableLiveData<List<Post>>
 //    =
