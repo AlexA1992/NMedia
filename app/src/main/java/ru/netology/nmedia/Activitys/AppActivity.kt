@@ -20,7 +20,7 @@ class AppActivity : AppCompatActivity() {
     private fun handleIntent(intent: Intent){
         intent.let {
             val theText = intent.getStringExtra(Intent.EXTRA_TEXT)
-//            if (theText.isNullOrBlank()) return else editField.setText(theText)
+            if (theText.isNullOrBlank()) return
 //
 //            binding.saveButton.setOnClickListener {
 //                val newText = editField.text.toString()
@@ -42,17 +42,5 @@ class AppActivity : AppCompatActivity() {
                     textArg = theText
                 })
         }
-//    object ResultContract : ActivityResultContract<String, String?>() {
-//        override fun createIntent(context: Context, input: String) =
-//            Intent(context, AppActivity::class.java).putExtra(Intent.EXTRA_TEXT, input)
-//
-//        override fun parseResult(resultCode: Int, intent: Intent?): String {
-//            var theReturn: String = ""
-//            if (resultCode == Activity.RESULT_OK) {
-//                theReturn = intent?.getStringExtra("content").toString()
-//            }
-//            return theReturn
-//        }
-//    }
     }
 }

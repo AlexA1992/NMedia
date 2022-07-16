@@ -22,7 +22,6 @@ class CreatePostFragment : Fragment() {
         val viewModel: PostViewModel by viewModels(ownerProducer =
         ::requireParentFragment)
 
-//        binding.saveCreated.clearFocus()
         val editField = binding.newPost
         editField.requestFocus()
 

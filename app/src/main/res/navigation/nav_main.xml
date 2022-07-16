@@ -4,32 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
     app:startDestination="@id/feedFragment">
-
     <fragment
         android:id="@+id/feedFragment"
         android:name="ru.netology.nmedia.Activitys.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" >
+        tools:layout="@layout/fragment_feed"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@android:anim/fade_out">
         <action
             android:id="@+id/action_feedFragment_to_createPostFragment"
             app:destination="@id/createPostFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_singlePostFragment"
+            app:destination="@id/singlePostFragment" />
     </fragment>
     <fragment
         android:id="@+id/createPostFragment"
         android:name="ru.netology.nmedia.Activitys.CreatePostFragment"
         android:label="CreatePostFragment" />
-
     <fragment
-        android:id="@+id/feedFragment2"
-        android:name="ru.netology.nmedia.Activitys.FeedFragment"
-        android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" >
-        <action
-            android:id="@+id/action_feedFragment2_to_singlePostFragment"
-            app:destination="@id/single_post" />
-    </fragment>
-    <fragment
-        android:id="@+id/single_post"
+        android:id="@+id/singlePostFragment"
         android:name="ru.netology.nmedia.Activitys.SinglePostFragment"
-        android:label="SinglePostFragment" />
+        android:label="SinglePostFragment" >
+        <action
+            android:id="@+id/action_singlePostFragment_to_createPostFragment"
+            app:destination="@id/createPostFragment" />
+    </fragment>
 </navigation>

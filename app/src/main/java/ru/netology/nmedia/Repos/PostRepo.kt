@@ -53,6 +53,7 @@ class PostRepo() : Repository {
                 it.repostsQ = newPost.repostsQ
             }
         }
+
         posts.value = allPosts
     }
 
@@ -72,6 +73,7 @@ class PostRepo() : Repository {
             }
         }
         posts.value = allPosts
+        //println(posts.value)
     }
 
     override fun delete(postId: Int) {

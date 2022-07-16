@@ -52,12 +52,12 @@ internal class PostAdapter(
             oldItem != newItem
     }
 
-    inner class ViewHolder(private val postBinding: PostBinding) :
+inner class ViewHolder(private val postBinding: PostBinding) :
         RecyclerView.ViewHolder(postBinding.root) {
 
         @SuppressLint("SetTextI18n")
         fun bind(post: Post) = with(postBinding) {
-            //работа с одним постом
+            //передать один пост
             postBinding.post.getViewById(R.id.content).setOnClickListener{
                 postClicked(post)
             }
@@ -81,6 +81,15 @@ internal class PostAdapter(
                     }
                 }
             }
+            postBinding.menuButton.setOnClickListener {
+                postBinding.menuButton.isChecked = true
+                popupMenu.show()
+            }
+
+            popupMenu.setOnDismissListener() {
+                postBinding.menuButton.isChecked = false
+            }
+
             postBinding.schoolname.setText(post.author)
             postBinding.date.setText(post.date)
             postBinding.content.setText(post.content)
