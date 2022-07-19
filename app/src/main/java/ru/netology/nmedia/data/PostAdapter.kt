@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
+import ru.netology.nmedia.Repos.PostRepo
+import ru.netology.nmedia.Repos.Repository
 import ru.netology.nmedia.databinding.PostBinding
 import kotlin.properties.Delegates
 
@@ -25,15 +27,23 @@ internal class PostAdapter(
     private val deleteClicked: (Post) -> Unit,
     private val editClicked: (Post) -> Unit,
     private val postClicked: (Post) -> Unit,
-    //private val playClicked: (Post) -> Unit,
+
 ) : ListAdapter<Post, PostAdapter.ViewHolder>(Diffcallback) {
     var posts: List<Post> by Delegates.observable(emptyList()) { _, _, _ ->
         notifyDataSetChanged()
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = PostBinding.inflate(inflater, parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(
+            binding,
+            onLikeClicked,
+            shareClicked,
+            deleteClicked,
+            postClicked,
+            editClicked
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -52,13 +62,21 @@ internal class PostAdapter(
             oldItem != newItem
     }
 
-inner class ViewHolder(private val postBinding: PostBinding) :
+    class ViewHolder(
+        private val postBinding: PostBinding,
+        private val onLikeClicked: (Post) -> Unit,
+        private val shareClicked: (Post) -> Unit,
+        private val deleteClicked: (Post) -> Unit,
+        private val postClicked: (Post) -> Unit,
+        private val editClicked: (Post) -> Unit,
+    ) :
         RecyclerView.ViewHolder(postBinding.root) {
 
         @SuppressLint("SetTextI18n")
         fun bind(post: Post) = with(postBinding) {
             //передать один пост
-            postBinding.post.getViewById(R.id.content).setOnClickListener{
+            postBinding.content.setOnClickListener {
+                println("in ViewHolder")
                 postClicked(post)
             }
 

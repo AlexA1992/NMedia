@@ -21,18 +21,7 @@ class AppActivity : AppCompatActivity() {
         intent.let {
             val theText = intent.getStringExtra(Intent.EXTRA_TEXT)
             if (theText.isNullOrBlank()) return
-//
-//            binding.saveButton.setOnClickListener {
-//                val newText = editField.text.toString()
-//                if (newText.isBlank()) {
-//                    setResult(Activity.RESULT_CANCELED, intent)
-//                } else {
-//                    val newIntent = Intent()
-//                    newIntent.putExtra("content", newText)
-//                    setResult(Activity.RESULT_OK, newIntent)
-//                }
-//                finish()
-//            }
+
             val fragment =
                 supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
                     as NavHostFragment

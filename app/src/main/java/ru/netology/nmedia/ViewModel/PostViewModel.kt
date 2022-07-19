@@ -15,15 +15,17 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     //private val repository = SharedPostRepoFile(application)
     val data = repository.posts
 
-    var postToTransfer = MutableLiveData<Post?>()
+
+    val postToTransfer = SingleLiveEvent<Post>()
     fun postClicked(post: Post) {
+        println("in postClicked")
         postToTransfer.value = post
     }
 
-    //fun playClicked(post: Post) = repository.playPost(post.video)
+    //val shareActionNeeded = SingleLiveEvent<String>()
     fun shareClicked(post: Post) {
         repository.sharePlus(post.id)
-        shareActionNeeded.value = post.content
+        //shareActionNeeded.value = post.content
     }
 
     fun likesClicked(post: Post) = repository.likesChange(post)
@@ -32,10 +34,9 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     val currentPost = MutableLiveData<Post?>()
     fun onEditClicked(post: Post) {
+        println("in OnEditClicked")
         currentPost.value = post
     }
-
-    val shareActionNeeded = SingleLiveEvent<String>()
 
     val date = getCurrentDateTime()
     val dateInString = date.toString("dd/MM/yyyy HH:mm:ss")
@@ -43,7 +44,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     fun onSaveButtonClicked(newPostContent: String) {
         if (newPostContent.isBlank()) return
         val nextId = PostRepo.allPosts.orEmpty().size + 1
-        println("nextId $nextId")
+        //println("nextId $nextId")
         val post = currentPost.value?.copy(
             content = newPostContent
         ) ?: Post(
@@ -57,12 +58,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             edited = false,
             video = null
         )
-        println("post $post")
         repository.save(post)
         currentPost.value = null
     }
-//
-//    fun onCancelButtonClicked() {
-//        currentPost.value = null
-//    }
 }

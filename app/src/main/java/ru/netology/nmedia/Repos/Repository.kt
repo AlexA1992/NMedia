@@ -10,9 +10,5 @@ interface Repository {
     fun likesChange(post: Post)
     fun delete(postId: Int)
     fun save(post: Post)
-    //fun playPost(postVideo: String?)
 
-    companion object{
-        const val NEW_POSTID = 0
-    }
 }

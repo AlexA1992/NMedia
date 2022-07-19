@@ -63,13 +63,15 @@ class FeedFragment : Fragment() {
 
         //передать фрагмент с целым постом
         viewModel.postToTransfer.observe(viewLifecycleOwner) { postToTransfer ->
-            findNavController().navigate(
-                R.id.action_feedFragment_to_singlePostFragment,
-                Bundle().apply {
-                    textId = postToTransfer?.id.toString()
-                })
+            if (postToTransfer != null) {
+                findNavController().navigate(
+                    R.id.action_feedFragment_to_singlePostFragment,
+                    Bundle().apply {
+                        println("in postToTransferObserver")
+                        textId = postToTransfer?.id.toString()
+                    })
+            }
         }
-
         //редактим пост
         viewModel.currentPost.observe(viewLifecycleOwner) { currentPost ->
             if (currentPost != null) {
@@ -77,6 +79,7 @@ class FeedFragment : Fragment() {
                 findNavController().navigate(
                     R.id.action_feedFragment_to_createPostFragment,
                     Bundle().apply {
+                        println("in postcurrentPostObserver")
                         textArg = textToEdit
                     })
             }

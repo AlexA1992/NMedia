@@ -48,18 +48,18 @@ class SinglePostFragment : Fragment() {
             }
 //            println(thePost)
             val content =
-                binding.root.findViewById(R.id.content) as TextView
+                binding.post.content
             val author =
-                binding.root.findViewById(R.id.schoolname) as TextView
+                binding.post.schoolname
             val likes =
-                binding.root.findViewById(R.id.likes) as MaterialButton
+                binding.post.likes
             val repostsQ =
-                binding.root.findViewById(R.id.shares) as MaterialButton
-            val date = binding.root.findViewById(R.id.date) as TextView
+                binding.post.shares
+            val date = binding.post.date
 
             if (thePost?.video != null) {
                 val isVideo =
-                    binding.root.findViewById(R.id.play) as AppCompatImageButton
+                    binding.post.play
                 isVideo.visibility = android.view.View.VISIBLE
             }
 
@@ -68,12 +68,12 @@ class SinglePostFragment : Fragment() {
             likes.setText(thePost?.liked.toString())
             if (thePost != null) {
                 println("thePost.liked ${thePost.liked}")
-                if (thePost.liked > 0) likes.setIconResource(R.drawable.liked24)
+                likes.isChecked = thePost.likedbyMe
             }
             repostsQ.setText(thePost?.repostsQ.toString())
             if (thePost != null) {
                 println("thePost.repostsQ ${thePost.repostsQ}")
-                if (thePost.repostsQ > 0) repostsQ.setIconResource(R.drawable.ic_baseline_share_24_red)
+                repostsQ.isChecked = thePost.repostsQ > 0
             }
             date.setText(thePost?.date)
 

@@ -53,7 +53,6 @@ class PostRepo() : Repository {
                 it.repostsQ = newPost.repostsQ
             }
         }
-
         posts.value = allPosts
     }
 
@@ -73,7 +72,6 @@ class PostRepo() : Repository {
             }
         }
         posts.value = allPosts
-        //println(posts.value)
     }
 
     override fun delete(postId: Int) {
@@ -113,7 +111,4 @@ class PostRepo() : Repository {
     companion object {
         var allPosts: List<Post>? = PostRepo().posts.value
     }
-
-
-
 }
