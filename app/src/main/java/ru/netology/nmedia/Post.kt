@@ -4,13 +4,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Post (
-    var id: Int,
-    var liked: Int,
-    var likedbyMe: Boolean,
+    var id: Int = 0,
+    var liked: Int = 0,
+    var likedbyMe: Boolean = false,
     val content: String,
     var date: String,
-    val author: String,
-    var repostsQ: Int,
-    var edited: Boolean,
-    val video: String?
+    val author: String = "Netologia",
+    var repostsQ: Int = 0,
+    var edited: Boolean = false,
+    val video: String? = ""
 )

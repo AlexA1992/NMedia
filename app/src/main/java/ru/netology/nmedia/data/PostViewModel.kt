@@ -1,20 +1,21 @@
 package ru.netology.nmedia.data
 
 import android.app.Application
-import android.content.Intent
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.awaitAll
+import androidx.lifecycle.ViewModel
 import ru.netology.nmedia.*
-import kotlin.math.max
+import ru.netology.nmedia.DB.AppDb
+import ru.netology.nmedia.DB.DBTurnToImpl
 
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
     //private val repository = PostRepo()
     //private val repository = SharedPostRepo(application)
-    private val repository = SharedPostRepoFile(application)
-    val data = repository.posts
+    //private val repository = SharedPostRepoFile(application)
+    private val repository = SQLRepo(AppDb.getInstance(application).postDao)
+
+    val data = repository.getAll()
 
     //fun playClicked(post: Post) = repository.playPost(post.video)
     fun shareClicked(post: Post) {
@@ -23,7 +24,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun likesClicked(post: Post) = repository.likesChange(post)
-    fun onDeleteClicked(post: Post) = repository.delete(post.id)
+    fun onDeleteClicked(post: Post) = repository.delete(post)
 
     fun onEditClicked(post: Post) {
         currentPost.value = post
@@ -37,40 +38,28 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     fun onSaveButtonClicked(newPostContent: String) {
         if (newPostContent.isBlank()) return
+//
+//        var maxId = repository.posts.maxOfOrNull {
+//            it.id
+//        }
+//        if (maxId == null) maxId = 0
+//        val nextId = maxId.plus(1)
+//        println("nextId $nextId")
 
-        var maxId = repository.allPosts?.maxOfOrNull {
-            it.id
-        }
-        if(maxId == null) maxId = 0
-        val nextId = maxId.plus(1)
-        println("nextId $nextId")
-
-        val post = currentPost.value?.copy(
-            content = newPostContent
-        ) ?: nextId.let {
-            nextId?.let { it1 ->
-                Post(
-                    id = it1,
-                    author = "Нетология - школа ...",
-                    content = "$newPostContent $nextId",
-                    date = dateInString,
-                    liked = 0,
-                    likedbyMe = false,
-                    repostsQ = 0,
-                    edited = false,
-                    video = null
-                )
-            }
-        }
+        val post =
+            Post(
+                content = newPostContent,
+                date = dateInString,
+            )
         //println("post $post")
-        println()
-        if (post != null) {
-            repository.save(post)
+        println("in ViewModel post $post")
+        repository.save(post)
+        currentPost.value = null
         }
+
+    fun onCancelButtonClicked() {
         currentPost.value = null
     }
-//
-//    fun onCancelButtonClicked() {
-//        currentPost.value = null
-//    }
 }
+
+

@@ -1,26 +1,23 @@
 package ru.netology.nmedia
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.activity.result.launch
 import androidx.activity.viewModels
 import ru.netology.nmedia.data.PostViewModel
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.content.edit
-import com.google.android.material.snackbar.Snackbar
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import ru.netology.nmedia.data.PostAdapter
-import ru.netology.nmedia.data.SharedPostRepo
 import ru.netology.nmedia.data.hideKeyboard
 import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.databinding.PostBinding
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: PostViewModel by viewModels()
-
+    //    private val viewModel by viewModels<PostViewModel>()
+    val viewModel: PostViewModel by viewModels()
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,42 +34,21 @@ class MainActivity : AppCompatActivity() {
         viewModel.data.observe(this) { posts ->
             adapter1.posts = posts
         }
-
-        binding.create.setOnClickListener {
-            createLauncher.launch()
+        binding.save.setOnClickListener {
+            val theContent = binding.newPost.text.toString()
+            viewModel.onSaveButtonClicked(theContent)
+            Toast.makeText(layoutInflater.context, "Done", Toast.LENGTH_SHORT).show()
+            binding.save.clearFocus()
+            binding.save.hideKeyboard()
         }
-
-        viewModel.shareActionNeeded.observe(this) { content ->
-            val intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, content)
-                type = "text/plain"
-            }
-            val shareIntent = Intent.createChooser(
-                intent, "Выберите приложение"
-            )
-            startActivity(shareIntent)
+        binding.cancel.setOnClickListener {
+            viewModel.onCancelButtonClicked()
+            Toast.makeText(layoutInflater.context, "O-o-u-p-s", Toast.LENGTH_SHORT).show()
+            binding.save.clearFocus()
+            binding.save.hideKeyboard()
         }
-
         viewModel.currentPost.observe(this) { currentPost ->
-            if (currentPost != null) {
-                editLauncher.launch(currentPost.content)
-            }
+            binding.newPost.setText(currentPost?.content)
         }
-    }
-
-    val editLauncher = registerForActivityResult(EditPostActivity.ResultContract) {
-        val content = it ?: return@registerForActivityResult
-        viewModel.onSaveButtonClicked(content)
-    }
-
-    val createLauncher = registerForActivityResult(CreatePostActivity.ResultCreateContract) {
-        val content = it ?: return@registerForActivityResult
-        viewModel.onSaveButtonClicked(content)
-        Toast.makeText(layoutInflater.context, "Done", Toast.LENGTH_SHORT).show()
     }
 }
-
-
-
-

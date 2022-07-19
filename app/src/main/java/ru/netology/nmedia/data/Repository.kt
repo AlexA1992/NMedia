@@ -9,7 +9,7 @@ interface Repository {
 
     fun sharePlus(postId: Int)
     fun likesChange(post: Post)
-    fun delete(postId: Int)
+    fun delete(post: Post)
     fun save(post: Post)
     //fun playPost(postVideo: String?)
 

@@ -7,7 +7,6 @@ object PostsTable {
         CREATE TABLE $NAME (
         ${Column.ID.columnName} INTEGER PRIMARY KEY AUTOINCREMENT,
         ${Column.LIKED.columnName} TEXT NOT NULL,
-        ${Column.LIKED.columnName} TEXT NOT NULL,
         ${Column.LIKEDBYME.columnName} BOOLEAN NOT NULL,
         ${Column.CONTENT.columnName} TEXT NOT NULL,
         ${Column.DATE.columnName} TEXT NOT NULL,
@@ -18,16 +17,16 @@ object PostsTable {
         );
         """.trimIndent()
 
-val ALL_COLUMNS_NAMES = Column.values().map { it.columnName }.toTypedArray()
+    val ALL_COLUMNS_NAMES = Column.values().map { it.columnName }.toTypedArray()
 
     enum class Column(val columnName: String) {
         ID("id"),
         LIKED("liked"),
-        LIKEDBYME("likedbyme"),
+        LIKEDBYME("likedByMe"),
         CONTENT("content"),
         DATE("date"),
         AUTHOR("author"),
-        REPOSTSQ("repostedq"),
+        REPOSTSQ("repostsQ"),
         EDITED("edited"),
         VIDEO("video")
     }
