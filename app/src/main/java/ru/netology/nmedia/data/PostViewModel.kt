@@ -12,7 +12,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     //private val repository = SharedPostRepo(application)
     //private val repository = SharedPostRepoFile(application)
     private val repository: Repository =
-        SQLRepo(
+        RoomRepo(
             dao = AppDb.getInstance(
                 context = application
             ).postDao
@@ -41,20 +41,20 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     fun onSaveButtonClicked(newPostContent: String) {
         if (newPostContent.isBlank()) return
-//
-//        var maxId = repository.posts.maxOfOrNull {
-//            it.id
-//        }
-//        if (maxId == null) maxId = 0
-//        val nextId = maxId.plus(1)
-//        println("nextId $nextId")
-
-        val post =
-            Post(
-                content = newPostContent,
-                date = dateInString,
-            )
-        //println("post $post")
+        val post = currentPost.value?.copy(
+            content = newPostContent,
+            date = dateInString,
+            edited = true
+        )?:
+        Post(
+            author = "Нетология - школа ...",
+            content = newPostContent,
+            date = dateInString,
+            liked = 0,
+            likedByMe = false,
+            repostsQ = 0,
+            edited = false,
+        )
         println("in ViewModel post $post")
         repository.save(post)
         currentPost.value = null

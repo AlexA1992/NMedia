@@ -17,7 +17,7 @@ interface DbTurnTo {
     @Insert
     fun insert(post: PostEntity)
 
-    @Query("UPDATE posts SET content = :content WHERE id = :id")
+    @Query("UPDATE posts SET content = :content, edited = 1 WHERE id = :id")
     fun update(id: Int, content: String)
 
 //    fun save(post: PostEntity) =

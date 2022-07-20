@@ -6,7 +6,7 @@ import ru.netology.nmedia.DB.toEntity
 import ru.netology.nmedia.DB.toModel
 import ru.netology.nmedia.Post
 
-class SQLRepo(
+class RoomRepo(
     private val dao: DbTurnTo
 ) : Repository {
     override val data = dao.getAll().map { entities ->
