@@ -87,7 +87,7 @@ internal class PostAdapter(
             postBinding.shares.isChecked = post.repostsQ > 0
             postBinding.shares.setIconResource(R.drawable.allshares)
 
-            if (post.video != null) {
+            if (post.video != "") {
                 postBinding.play.setVisibility(android.view.View.VISIBLE)
             } else {
                 postBinding.play.setVisibility(android.view.View.GONE)

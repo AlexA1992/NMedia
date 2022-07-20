@@ -25,13 +25,13 @@ class DBTurnToImpl(
     override fun save(post: Post): Post {
         println("post in DAO $post")
         val values = ContentValues().apply {
-            put(PostsTable.Column.LIKED.columnName, post.liked)
-            put(PostsTable.Column.LIKEDBYME.columnName, post.likedbyMe)
-            put(PostsTable.Column.REPOSTSQ.columnName, post.repostsQ)
-            put(PostsTable.Column.VIDEO.columnName, post.video)
             put(PostsTable.Column.AUTHOR.columnName, post.author)
             put(PostsTable.Column.CONTENT.columnName, post.content)
             put(PostsTable.Column.DATE.columnName, post.date)
+            put(PostsTable.Column.LIKEDBYME.columnName, post.likedbyMe)
+            put(PostsTable.Column.LIKED.columnName, post.liked)
+            put(PostsTable.Column.REPOSTSQ.columnName, post.repostsQ)
+            put(PostsTable.Column.VIDEO.columnName, post.video)
             put(PostsTable.Column.EDITED.columnName, post.edited)
         }
         val id = if (post.id != 0) {

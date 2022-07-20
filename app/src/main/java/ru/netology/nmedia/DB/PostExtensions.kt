@@ -12,5 +12,5 @@ fun Cursor.toPosts() = Post(
     author = getString(getColumnIndexOrThrow(PostsTable.Column.AUTHOR.columnName)),
     repostsQ = getInt(getColumnIndexOrThrow(PostsTable.Column.REPOSTSQ.columnName)),
     edited = getInt(getColumnIndexOrThrow(PostsTable.Column.EDITED.columnName)) != 0,
-    video = getString(getColumnIndexOrThrow(PostsTable.Column.DATE.columnName)),
+    video = getString(getColumnIndexOrThrow(PostsTable.Column.VIDEO.columnName)),
 )
