@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/NMedia.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/NMedia.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Nmedia.iml" filepath="$PROJECT_DIR$/.idea/modules/Nmedia.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Nmedia.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Nmedia.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Nmedia.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Nmedia.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Nmedia.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Nmedia.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Nmedia.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Nmedia.app.unitTest.iml" />

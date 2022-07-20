@@ -25,7 +25,7 @@ interface DbTurnTo {
 
     @Query("""
         UPDATE posts SET
-        liked = liked = CASE WHEN likedByMe THEN -1 ELSE 1 END,
+        liked = liked + CASE WHEN likedByMe THEN -1 ELSE 1 END,
         likedByMe = CASE WHEN likedByMe THEN 0 ELSE 1 END
         WHERE id =  :id        
     """)
