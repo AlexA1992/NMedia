@@ -80,7 +80,7 @@ internal class PostAdapter(
             postBinding.content.setText(post.content)
 
             postBinding.likes.setText((post.liked).toString())
-            postBinding.likes.isChecked = post.likedbyMe
+            postBinding.likes.isChecked = post.likedByMe
             postBinding.likes.setIconResource(R.drawable.ic_likes_favorites_red)
 
             postBinding.shares.setText(post.repostsQ.toString())

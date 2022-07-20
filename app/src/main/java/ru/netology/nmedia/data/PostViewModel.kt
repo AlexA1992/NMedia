@@ -3,19 +3,22 @@ package ru.netology.nmedia.data
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import ru.netology.nmedia.*
 import ru.netology.nmedia.DB.AppDb
-import ru.netology.nmedia.DB.DBTurnToImpl
 
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
     //private val repository = PostRepo()
     //private val repository = SharedPostRepo(application)
     //private val repository = SharedPostRepoFile(application)
-    private val repository = SQLRepo(AppDb.getInstance(application).postDao)
+    private val repository: Repository =
+        SQLRepo(
+            dao = AppDb.getInstance(
+                context = application
+            ).postDao
+        )
 
-    val data = repository.getAll()
+    val data = repository.data
 
     //fun playClicked(post: Post) = repository.playPost(post.video)
     fun shareClicked(post: Post) {
@@ -55,7 +58,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         println("in ViewModel post $post")
         repository.save(post)
         currentPost.value = null
-        }
+    }
 
     fun onCancelButtonClicked() {
         currentPost.value = null

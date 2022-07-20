@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class Post (
     var id: Int = 0,
     var liked: Int = 0,
-    var likedbyMe: Boolean = false,
+    var likedByMe: Boolean = false,
     val content: String,
     var date: String,
     val author: String = "Netologia",
