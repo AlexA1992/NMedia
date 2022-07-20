@@ -7,13 +7,10 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.netology.nmedia.EditPostActivity
-import ru.netology.nmedia.Post
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.PostBinding
 import kotlin.properties.Delegates
@@ -24,15 +21,24 @@ internal class PostAdapter(
     private val shareClicked: (Post) -> Unit,
     private val deleteClicked: (Post) -> Unit,
     private val editClicked: (Post) -> Unit,
-    //private val playClicked: (Post) -> Unit,
+    private val postClicked: (Post) -> Unit,
+
 ) : ListAdapter<Post, PostAdapter.ViewHolder>(Diffcallback) {
     var posts: List<Post> by Delegates.observable(emptyList()) { _, _, _ ->
         notifyDataSetChanged()
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = PostBinding.inflate(inflater, parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(
+            binding,
+            onLikeClicked,
+            shareClicked,
+            deleteClicked,
+            postClicked,
+            editClicked
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -51,11 +57,24 @@ internal class PostAdapter(
             oldItem != newItem
     }
 
-    inner class ViewHolder(private val postBinding: PostBinding) :
+    class ViewHolder(
+        private val postBinding: PostBinding,
+        private val onLikeClicked: (Post) -> Unit,
+        private val shareClicked: (Post) -> Unit,
+        private val deleteClicked: (Post) -> Unit,
+        private val postClicked: (Post) -> Unit,
+        private val editClicked: (Post) -> Unit,
+    ) :
         RecyclerView.ViewHolder(postBinding.root) {
 
         @SuppressLint("SetTextI18n")
         fun bind(post: Post) = with(postBinding) {
+            //передать один пост
+            postBinding.content.setOnClickListener {
+                println("in ViewHolder")
+                postClicked(post)
+            }
+
             val popupMenu by lazy {
                 //println(post)
                 PopupMenu(itemView.context, postBinding.menuButton).apply {
@@ -75,6 +94,15 @@ internal class PostAdapter(
                     }
                 }
             }
+            postBinding.menuButton.setOnClickListener {
+                postBinding.menuButton.isChecked = true
+                popupMenu.show()
+            }
+
+            popupMenu.setOnDismissListener() {
+                postBinding.menuButton.isChecked = false
+            }
+
             postBinding.schoolname.setText(post.author)
             postBinding.date.setText(post.date)
             postBinding.content.setText(post.content)

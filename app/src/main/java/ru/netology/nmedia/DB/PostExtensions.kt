@@ -1,7 +1,7 @@
 package ru.netology.nmedia.DB
 
 import android.database.Cursor
-import ru.netology.nmedia.Post
+import ru.netology.nmedia.data.Post
 
 internal fun PostEntity.toModel() = Post(
     id = id,
