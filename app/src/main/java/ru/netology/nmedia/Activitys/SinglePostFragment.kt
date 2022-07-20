@@ -81,7 +81,6 @@ class SinglePostFragment : Fragment() {
                 if (thePost != null) {
                     viewModel.likesClicked(thePost)
                 }
-                findNavController().navigateUp()
             }
 
             repostsQ.setOnClickListener {
@@ -90,7 +89,6 @@ class SinglePostFragment : Fragment() {
                     repostsQ.isChecked = thePost.repostsQ > 0
                     repostsQ.setIconResource(R.drawable.allshares)
                 }
-                findNavController().navigateUp()
             }
             //не получается создать экземпляр Вьюхолдера
 //            val singleViewHolder = PostAdapter(
