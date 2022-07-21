@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.savedstate:savedstate-ktx:1.2.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/9940f176dd1f9a104100dc43c4d6f89f/transformed/jetified-savedstate-ktx-1.2.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9940f176dd1f9a104100dc43c4d6f89f/transformed/jetified-savedstate-ktx-1.2.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9940f176dd1f9a104100dc43c4d6f89f/transformed/jetified-savedstate-ktx-1.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5fa98e6328e28b0474d3f44e59622b9d/transformed/jetified-savedstate-ktx-1.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5fa98e6328e28b0474d3f44e59622b9d/transformed/jetified-savedstate-ktx-1.2.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/5fa98e6328e28b0474d3f44e59622b9d/transformed/jetified-savedstate-ktx-1.2.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

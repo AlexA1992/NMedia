@@ -43,7 +43,7 @@ class SinglePostFragment : Fragment() {
                 binding.post.shares
             val date = binding.post.date
 
-            if (thePost?.video != null) {
+            if (thePost?.video != "") {
                 val isVideo =
                     binding.post.play
                 isVideo.visibility = android.view.View.VISIBLE
@@ -51,6 +51,7 @@ class SinglePostFragment : Fragment() {
 
             content.setText(thePost?.content)
             author.setText(thePost?.author)
+
             likes.setText(thePost?.liked.toString())
             if (thePost != null) {
                 println("thePost.liked ${thePost.liked}")
@@ -83,38 +84,38 @@ class SinglePostFragment : Fragment() {
 //                binding
 //            )
             val menuButton: MaterialButton = binding.root.findViewById(R.id.menuButton)
-                val popupMenu by lazy {
-                    //println(post)
-                    PopupMenu(this.context, menuButton).apply {
-                        inflate(R.menu.options_post)
-                        setOnMenuItemClickListener { menuItem ->
-                            when (menuItem.itemId) {
-                                R.id.remove -> {
-                                    if (thePost != null) {
-                                        viewModel.onDeleteClicked(thePost)
-                                    }
-                                    findNavController().navigateUp()
-                                    true
+            val popupMenu by lazy {
+                //println(post)
+                PopupMenu(this.context, menuButton).apply {
+                    inflate(R.menu.options_post)
+                    setOnMenuItemClickListener { menuItem ->
+                        when (menuItem.itemId) {
+                            R.id.remove -> {
+                                if (thePost != null) {
+                                    viewModel.onDeleteClicked(thePost)
                                 }
-
-                                R.id.edit -> {
-                                    if (thePost != null) {
-                                        viewModel.onEditClicked(thePost)
-                                    }
-                                    findNavController().navigate(
-                                        R.id.action_singlePostFragment_to_createPostFragment,
-                                        Bundle().apply {
-                                            if (thePost != null) {
-                                                textArg = thePost.content
-                                            }
-                                        })
-                                    true
-                                }
-                                else -> false
+                                findNavController().navigateUp()
+                                true
                             }
+
+                            R.id.edit -> {
+                                if (thePost != null) {
+                                    viewModel.onEditClicked(thePost)
+                                }
+                                findNavController().navigate(
+                                    R.id.action_singlePostFragment_to_createPostFragment,
+                                    Bundle().apply {
+                                        if (thePost != null) {
+                                            textArg = thePost.content
+                                        }
+                                    })
+                                true
+                            }
+                            else -> false
                         }
                     }
                 }
+            }
             menuButton.setOnClickListener {
                 menuButton.isChecked = true
                 popupMenu.show()

@@ -19,4 +19,5 @@
     <string name="create_post">create post</string>
     <string name="_0">0</string>
     <string name="your_new_post">your new post</string>
+    <string name="notification_user_liked">Some user likes it</string>
 </resources>
