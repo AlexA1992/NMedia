@@ -15,10 +15,18 @@
         app:popExitAnim="@android:anim/fade_out">
         <action
             android:id="@+id/action_feedFragment_to_createPostFragment"
-            app:destination="@id/createPostFragment" />
+            app:destination="@id/createPostFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_feedFragment_to_singlePostFragment"
-            app:destination="@id/singlePostFragment" />
+            app:destination="@id/singlePostFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/createPostFragment"
@@ -30,6 +38,10 @@
         android:label="SinglePostFragment" >
         <action
             android:id="@+id/action_singlePostFragment_to_createPostFragment"
-            app:destination="@id/createPostFragment" />
+            app:destination="@id/createPostFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 </navigation>
