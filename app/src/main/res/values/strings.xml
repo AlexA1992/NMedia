@@ -11,13 +11,18 @@
     <string name="edit" translatable="true">Edit this</string>
     <string name="edited" translatable="false">edited</string>
     <string name="the_description" translatable="false">the description</string>
-    <string name="play">Play the video</string>
-    <string name="before_editing">before editing</string>
-    <string name="save_button">Save button</string>
-    <string name="save">Save</string>
-    <string name="your_new_text">your new text</string>
-    <string name="create_post">create post</string>
-    <string name="_0">0</string>
-    <string name="your_new_post">your new post</string>
-    <string name="notification_user_liked">Some user likes it</string>
+    <string name="play" translatable="false">Play the video</string>
+    <string name="before_editing" translatable="false">before editing</string>
+    <string name="save_button" translatable="false">Save button</string>
+    <string name="save" translatable="false">Save</string>
+    <string name="your_new_text" translatable="false">your new text</string>
+    <string name="create_post" translatable="false">create post</string>
+    <string name="_0" translatable="false">0</string>
+    <string name="your_new_post" translatable="false">your new post</string>
+    <string name="notification_user_liked" translatable="false">User <b>%1$s</b> liked %2$s post</string>
+    <string name="channel_remote_name" translatable="false">push_channel</string>
+    <string name="channel_remote_description" translatable="false">my_first_notification_channel</string>
+    <string name="notification_user_posted_post_title" translatable="false">New post added by <strong>%1$s</strong>"</string>
+    <string name="notification_user_posted_post_text" translatable="false">%1$s</string>
+    <string name="notification_send_wrong" translatable="false">The app sent your some unparcelable message</string>
 </resources>
